@@ -1,0 +1,15 @@
+{
+  "name": "You Are...",
+  "short_name": "You Are...",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fffcf5",
+  "theme_color": "#699eb0",
+  "icons": [
+    {
+      "src": "https://www.dropbox.com/scl/fi/zzuaaiwjxm52f02xagp61/YAgraphic.png?rlkey=1jqwkoiauscb2neq4f8km1av2&st=gut44nty&raw=1",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
