@@ -7,7 +7,7 @@
   "theme_color": "#699eb0",
   "icons": [
     {
-      "src": "https://www.dropbox.com/scl/fi/zzuaaiwjxm52f02xagp61/YAgraphic.png?rlkey=1jqwkoiauscb2neq4f8km1av2&st=gut44nty&raw=1",
+    <img src="YAgraphic.png" alt="You Are logo" class="logo" />
       "type": "image/png",
       "sizes": "512x512"
     }
