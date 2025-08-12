@@ -5,221 +5,196 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>You Are...</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#699eb0" />
   <link rel="icon" type="image/png" href="https://www.dropbox.com/scl/fi/52zdcavuv8onkzli5nqb5/WCSLgraphic.png?rlkey=5v4dj1j6qmg218daxx37nbbty&st=p4a8ug87&raw=1">
-<link rel="apple-touch-icon" href="https://www.dropbox.com/scl/fi/zzuaaiwjxm52f02xagp61/YAgraphic.png?rlkey=1jqwkoiauscb2neq4f8km1av2&st=9he7vchd&raw=1">
+  <link rel="apple-touch-icon" href="https://www.dropbox.com/scl/fi/zzuaaiwjxm52f02xagp61/YAgraphic.png?rlkey=1jqwkoiauscb2neq4f8km1av2&st=9he7vchd&raw=1">
   <style>
-  body {
-    background: #fff9f3; /* light warm cream */
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    padding: 2rem;
-    color: #3c3c3c; /* warm soft charcoal */
-  }
-
-  .logo {
-    max-width: 150px;
-    margin-bottom: 1rem;
-  }
-
-  h1 {
-    color: #127490; /* teal/blue arrow */
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    font-size: 1.6rem;
-  }
-
-  #prompt {
-    margin: 2rem auto;
-    font-size: 1.25rem;
-    padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 16px;
-    border: 2px dashed #f8b934; /* yellow from background */
-    max-width: 90%;
-    min-height: 120px;
-    backdrop-filter: blur(6px);
-  }
-
-  button {
-    background-color: #b24627; /* orange/red arrow */
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 30px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    margin-top: 1rem;
-    font-weight: 600;
-  }
-
-  button:hover {
-    background-color: #c95e3c; /* lighter red-orange hover */
-  }
-
-  .cover {
-    margin-top: 2rem;
-    width: 250px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
-
-  #gate, #generator {
-    display: none;
-  }
-
-  #gate {
-    display: block;
-    max-width: 400px;
-    margin: 0 auto;
-    margin-top: 4rem;
-  }
-
-  input[type="password"] {
-    padding: 0.75rem;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    width: 80%;
-    max-width: 300px;
-    margin-bottom: 1rem;
-  }
-
-  .hint {
-    font-size: 0.85rem;
-    color: #999;
-    margin-top: 0.5rem;
-  }
-</style>
+    body {
+      background: #fff9f3;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      padding: 2rem;
+      color: #3c3c3c;
+    }
+    .logo {
+      max-width: 150px;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      color: #127490;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      font-size: 1.6rem;
+    }
+    #prompt {
+      margin: 2rem auto;
+      font-size: 1.25rem;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      border: 2px dashed #f8b934;
+      max-width: 90%;
+      min-height: 120px;
+      backdrop-filter: blur(6px);
+    }
+    button {
+      background-color: #b24627;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    button:hover {
+      background-color: #c95e3c;
+    }
+    .cover {
+      margin-top: 2rem;
+      width: 250px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    #notice, #generator {
+      display: none;
+    }
+    #notice {
+      display: block;
+      max-width: 400px;
+      margin: 0 auto;
+      margin-top: 4rem;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
 <body>
-  <div id="gate">
-    <h2>Private Access</h2>
-    <p>This page is for purchasers only.<br> Please enter the password to continue.</p>
-    <input type="password" id="passwordInput" placeholder="Enter password..." />
-    <br>
-    <button onclick="checkPassword()">Submit</button>
-    <div class="hint">(Hint: It's in your receipt email!)</div>
+
+  <div id="notice">
+    <h2>Thanks for Supporting This Work</h2>
+    <p>This app is for personal use only by those who purchased from Playful Heart Parenting. Please do not share this link publicly.</p>
+    <button onclick="acknowledge()">Got it!</button>
   </div>
 
   <div id="generator">
     <img src="YAgraphic.png" alt="You Are logo" class="logo" />
     <h1>"YOU ARE..." from Playful Heart Parenting</h1>
     <button onclick="generatePrompt()">You are...</button>
-    <div id="prompt">Tap the button to get a random prompt and do your best to act it out! There's no right or wrong way to do it. Just have fun and give it a go!</div>
-    <https://www.dropbox.com/scl/fi/zzuaaiwjxm52f02xagp61/YAgraphic.png?rlkey=1jqwkoiauscb2neq4f8km1av2&st=gut44nty&dl=1" alt="Who Can Sound Like graphic" class="cover" />
+    <div id="prompt">Tap the button to get a random prompt and act it out. No right or wrong way — just have fun!</div>
+    <img src="https://www.dropbox.com/scl/fi/zzuaaiwjxm52f02xagp61/YAgraphic.png?rlkey=1jqwkoiauscb2neq4f8km1av2&st=gut44nty&raw=1" alt="You Are graphic" class="cover" />
     <p style="font-size: 0.9rem; color: #777; margin-top: 3rem; max-width: 90%; margin-left: auto; margin-right: auto;">
-      © 2025 Mia Wisinski, Playful Heart Parenting. This app is for personal use only by those who have purchased <em>this app from Playful Heart Parenting</em>. Please do not share this link publicly or distribute without explicit permission.
+      © 2025 Mia Wisinski, Playful Heart Parenting. For personal use only by purchasers. Please do not share without permission.
     </p>
-      <div style="margin-top: 3rem;">
-  <h2>Submit Your Own!</h2>
-  <p style="font-size: 1rem; max-width: 600px; margin: 0 auto;">
-    Got an idea for your own funny or creative "You Are..." prompt? We’d love to hear it! Click below to submit — we may feature it in a future update and credit your first name.
-  </p>
-  <button onclick="window.open('https://docs.google.com/forms/d/1cdh3JoLDVkj3GtvQx6wHe1oRtgHV675EaDDyD1ZoIIs/edit?usp=drivesdk', '_blank')"
-          style="margin-top: 1rem;">
-    Submit Your Idea
-  </button>
+    <div style="margin-top: 3rem;">
+      <h2>Submit Your Own!</h2>
+      <p style="font-size: 1rem; max-width: 600px; margin: 0 auto;">
+        Got an idea for a "You Are..." prompt? Submit it below — we may feature it in a future update and credit your first name.
+      </p>
+      <button onclick="window.open('https://docs.google.com/forms/d/1cdh3JoLDVkj3GtvQx6wHe1oRtgHV675EaDDyD1ZoIIs/edit?usp=drivesdk', '_blank')">
+        Submit Your Idea
+      </button>
+    </div>
   </div>
-      
-  </div>
-  <script>
-    const password = "ya";
 
-    function checkPassword() {
-      const userInput = document.getElementById("passwordInput").value;
-      if (userInput.trim().toLowerCase() === password) {
-        document.getElementById("gate").style.display = "none";
-        document.getElementById("generator").style.display = "block";
-      } else {
-        alert("Incorrect password. Please try again.");
-      }
+  <script>
+    function acknowledge() {
+      localStorage.setItem("youAreAppAgreed", "true");
+      document.getElementById("notice").style.display = "none";
+      document.getElementById("generator").style.display = "block";
+    }
+
+    if (localStorage.getItem("youAreAppAgreed") === "true") {
+      document.getElementById("notice").style.display = "none";
+      document.getElementById("generator").style.display = "block";
     }
 
     const prompts = [
-  "A baby penguin slipping around on the ice for the first time",
-  "A sloth that accidentally just drank a bunch of coffee",
-  "A bunch of weird emojis that never get used, finally getting texted to someone",
-  "A bunny trying to chase its own tail even though its tail is really short",
-  "A snowman melting on a hot day",
-  "A snowflake falling from the sky and being so excited to become part of snowman",
-  "A T-rex stomping over to its friend’s house for tea",
-  "A dandelion blowing in the wind and all the seeds are about to float off into the air",
-  "A lemon getting squeezed into lemonade",
-  "An earthworm trying to find its way up out of the soil on a rainy day",
-  "A cake getting baked in the oven",
-  "The finale of a fireworks show",
-  "An elephant who accidentally just grew a second trunk and is running around trying to find a mirror to see what’s going on",
-  "A baby’s diaper exploding with poop",
-  "A fart that’s been held in for 3 hours and is finally being let loose",
-  "A farmer who didn’t realize they sat on a fire ant hill and now ants are crawling up their overalls!",
-  "All the water balloons getting tossed around in a water balloon fight",
-  "A frog on a pogo stick bragging to his friends how high he can jump",
-  "A monkey swinging from tree to tree showing off for everyone watching her at the zoo",
-  "A bowl of ice cream melting in the hot sun",
-  "A snail showing off its shell in the snail parade",
-  "A turtle who just got a touchdown in a football game",
-  "A lizard who is trying out for the Olympic gymnastics team",
-  "A raccoon diving into a dumpster",
-  "A race car zooming across the finish line and then falling asleep because it’s so tired",
-  "A firefly scared of its own glow-in-the-dark booty every time it lights up",
-  "A giraffe showing off that it can reach the tallest branch of the tree",
-  "An onion being sliced up and put into a pot of soup",
-  "A booger getting picked and flung out the window of a car",
-  "An astronaut trying to lie down for a nap but there’s no gravity so she keeps floating up",
-  "An old whoopee cushion getting used for the last time because it POPS",
-  "A balloon who was let go and is flying all over the room",
-  "A flea hanging onto a dog’s tail as it wags and trying not to fall off",
-  "A chair getting sat on by an elephant and one of its legs breaking",
-  "An old dusty book being opened for the first time in 20 years",
-  "A jumping spider trying to not get stepped on in a crowd",
-  "A caterpillar winding itself up into a cocoon and turning into a butterfly",
-  "A grocery bag too full of groceries and then it busts the groceries fall all over the driveway",
-  "A stinky sock getting washed in the washing machine",
-  "A squirrel sneaking in to a treehouse to steal a kid’s leftover crackers ",
-  "A leaf floating down the river and then realizing it’s heading straight for a waterfall",
-  "A fish who is swimming then gets trapped in a fart bubble",
-  "The last piece of a puzzle finally getting put in place",
-  "A narwhal trying to sword fight with its tusk",
-  "A hippo getting its teeth cleaned at the dentist",
-  "A nervous frog hopping back and forth from lily pad to lily pad ",
-  "A bowl of cereal getting dropped and spilled all over the floor",
-  "A raindrop falling from a cloud for the first time ",
-  "A 100-year-old moose trying to breakdance",
-  "A shark who’s trying to make friends with some seals but the seals keep swimming away ",
-  "A seal who sees a shark coming ",
-  "A giant wave crashing on the shore of the beach",
-  "A mouse who accidentally snuck onto a hot air balloon ride and is realizing its up in the sky",
-  "A popsicle finally being taken out of the freezer and being so happy because it was super cold in there",
-  "A smoothie getting blended up in the blender ",
-  "The peanut butter in a peanut butter and jelly sandwich that’s getting made who is so excited to finally meet the jelly ",
-  "A seed getting planted and growing into the tallest tree in the world ",
-  "A magic beanstalk growing high into the clouds ",
-  "A whole bottle of maple syrup that got dropped and is slowly spilling all over the kitchen floor ",
-  "A plastic bag blowing in the wind ",
-  "A balloon getting blown up too big and then it pops",
-  "An octopus trying to ice skate",
-  "A kangaroo in a hopping contest ",
-  "A dog chasing its own tail and then accidentally biting it ",
-  "A giant balloon float in a parade that accidentally gets let go of and is flying up into outer space ",
-  "A spider trying to spin a web bigger than its spider neighbor (who has the biggest web in the neighborhood)",
-  "A ladybug that got stuck on its back and is trying to flip over ",
-  "A pancake getting flipped in the pan ",
-  "A hippo swinging on a swing at the playground ",
-  "A piece of chocolate melting in someone’s pocket",
-  "A big gust of cold wind blowing through a door when it gets opened ",
-  "A goldfish falling asleep in class at the school of fish ",
-  "A proud poodle showing off its new hairdo at a dog show ",
-  "Seaweed swaying in the sea ",
-  "A hermit crab leaving its shell and trying out a bunch of new empty shells to find the perfect new home! (Fun fact: hermit crabs actually do this!) ",
-  "A fly zooming around and then getting caught by a frog’s tongue ",
-  "A grasshopper trying to hop over a huge piece of dog poop that is in its way ",
-  "A bird trying to make a nest in under 10 seconds because it’s about to storm ",
-  "Lightning shooting down from the sky in a lightning storm ",
-  "A scorpion trying to do yoga ",
-  "A tired elevator going up and down and stopping on every floor and it can’t wait for the work day to be over "
-];
+      "A baby penguin slipping around on the ice for the first time",
+      "A sloth that accidentally just drank a bunch of coffee",
+      "A bunch of weird emojis that never get used, finally getting texted to someone",
+      "A bunny trying to chase its own tail even though its tail is really short",
+      "A snowman melting on a hot day",
+      "A snowflake falling from the sky and being so excited to become part of snowman",
+      "A T-rex stomping over to its friend’s house for tea",
+      "A dandelion blowing in the wind and all the seeds are about to float off into the air",
+      "A lemon getting squeezed into lemonade",
+      "An earthworm trying to find its way up out of the soil on a rainy day",
+      "A cake getting baked in the oven",
+      "The finale of a fireworks show",
+      "An elephant who accidentally just grew a second trunk and is running around trying to find a mirror to see what’s going on",
+      "A baby’s diaper exploding with poop",
+      "A fart that’s been held in for 3 hours and is finally being let loose",
+      "A farmer who didn’t realize they sat on a fire ant hill and now ants are crawling up their overalls!",
+      "All the water balloons getting tossed around in a water balloon fight",
+      "A frog on a pogo stick bragging to his friends how high he can jump",
+      "A monkey swinging from tree to tree showing off for everyone watching her at the zoo",
+      "A bowl of ice cream melting in the hot sun",
+      "A snail showing off its shell in the snail parade",
+      "A turtle who just got a touchdown in a football game",
+      "A lizard who is trying out for the Olympic gymnastics team",
+      "A raccoon diving into a dumpster",
+      "A race car zooming across the finish line and then falling asleep because it’s so tired",
+      "A firefly scared of its own glow-in-the-dark booty every time it lights up",
+      "A giraffe showing off that it can reach the tallest branch of the tree",
+      "An onion being sliced up and put into a pot of soup",
+      "A booger getting picked and flung out the window of a car",
+      "An astronaut trying to lie down for a nap but there’s no gravity so she keeps floating up",
+      "An old whoopee cushion getting used for the last time because it POPS",
+      "A balloon who was let go and is flying all over the room",
+      "A flea hanging onto a dog’s tail as it wags and trying not to fall off",
+      "A chair getting sat on by an elephant and one of its legs breaking",
+      "An old dusty book being opened for the first time in 20 years",
+      "A jumping spider trying to not get stepped on in a crowd",
+      "A caterpillar winding itself up into a cocoon and turning into a butterfly",
+      "A grocery bag too full of groceries and then it busts the groceries fall all over the driveway",
+      "A stinky sock getting washed in the washing machine",
+      "A squirrel sneaking in to a treehouse to steal a kid’s leftover crackers",
+      "A leaf floating down the river and then realizing it’s heading straight for a waterfall",
+      "A fish who is swimming then gets trapped in a fart bubble",
+      "The last piece of a puzzle finally getting put in place",
+      "A narwhal trying to sword fight with its tusk",
+      "A hippo getting its teeth cleaned at the dentist",
+      "A nervous frog hopping back and forth from lily pad to lily pad",
+      "A bowl of cereal getting dropped and spilled all over the floor",
+      "A raindrop falling from a cloud for the first time",
+      "A 100-year-old moose trying to breakdance",
+      "A shark who’s trying to make friends with some seals but the seals keep swimming away",
+      "A seal who sees a shark coming",
+      "A giant wave crashing on the shore of the beach",
+      "A mouse who accidentally snuck onto a hot air balloon ride and is realizing its up in the sky",
+      "A popsicle finally being taken out of the freezer and being so happy because it was super cold in there",
+      "A smoothie getting blended up in the blender",
+      "The peanut butter in a peanut butter and jelly sandwich that’s getting made who is so excited to finally meet the jelly",
+      "A seed getting planted and growing into the tallest tree in the world",
+      "A magic beanstalk growing high into the clouds",
+      "A whole bottle of maple syrup that got dropped and is slowly spilling all over the kitchen floor",
+      "A plastic bag blowing in the wind",
+      "A balloon getting blown up too big and then it pops",
+      "An octopus trying to ice skate",
+      "A kangaroo in a hopping contest",
+      "A dog chasing its own tail and then accidentally biting it",
+      "A giant balloon float in a parade that accidentally gets let go of and is flying up into outer space",
+      "A spider trying to spin a web bigger than its spider neighbor (who has the biggest web in the neighborhood)",
+      "A ladybug that got stuck on its back and is trying to flip over",
+      "A pancake getting flipped in the pan",
+      "A hippo swinging on a swing at the playground",
+      "A piece of chocolate melting in someone’s pocket",
+      "A big gust of cold wind blowing through a door when it gets opened",
+      "A goldfish falling asleep in class at the school of fish",
+      "A proud poodle showing off its new hairdo at a dog show",
+      "Seaweed swaying in the sea",
+      "A hermit crab leaving its shell and trying out a bunch of new empty shells to find the perfect new home! (Fun fact: hermit crabs actually do this!)",
+      "A fly zooming around and then getting caught by a frog’s tongue",
+      "A grasshopper trying to hop over a huge piece of dog poop that is in its way",
+      "A bird trying to make a nest in under 10 seconds because it’s about to storm",
+      "Lightning shooting down from the sky in a lightning storm",
+      "A scorpion trying to do yoga",
+      "A tired elevator going up and down and stopping on every floor and it can’t wait for the work day to be over"
+    ];
 
     function generatePrompt() {
       const output = document.getElementById("prompt");
