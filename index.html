@@ -1,200 +1,286 @@
-<script>
-  // ----- One-time notice gate -----
-  function show(id, on=true){ document.getElementById(id).style.display = on ? 'block' : 'none'; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You Are...</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#699eb0" />
+  <link rel="icon" type="image/png" href="https://www.dropbox.com/scl/fi/52zdcavuv8onkzli5nqb5/WCSLgraphic.png?rlkey=5v4dj1j6qmg218daxx37nbbty&st=p4a8ug87&raw=1">
+  <link rel="apple-touch-icon" href="https://www.dropbox.com/scl/fi/zzuaaiwjxm52f02xagp61/YAgraphic.png?rlkey=1jqwkoiauscb2neq4f8km1av2&st=9he7vchd&raw=1">
+  <style>
+    body {
+      background: #fff9f3;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      padding: 2rem;
+      color: #3c3c3c;
+    }
+    .logo {
+      max-width: 150px;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      color: #127490;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      font-size: 1.6rem;
+    }
+    #prompt {
+      margin: 2rem auto;
+      font-size: 1.25rem;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      border: 2px dashed #f8b934;
+      max-width: 90%;
+      min-height: 120px;
+      backdrop-filter: blur(6px);
+    }
+    button {
+      background-color: #b24627;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    button:hover {
+      background-color: #c95e3c;
+    }
+    .cover {
+      margin-top: 2rem;
+      width: 250px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    #notice, #generator {
+      display: none;
+    }
+    #notice {
+      display: block;
+      max-width: 400px;
+      margin: 0 auto;
+      margin-top: 4rem;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
 
-  function acknowledge() {
-    localStorage.setItem("youAreAppAgreed", "true");
-    show("notice", false);
-    show("generator", true);
-  }
+  <div id="notice">
+    <h2>Thanks for Supporting This Work</h2>
+    <p>This app is for personal use only by those who purchased from Playful Heart Parenting. Please do not share this link publicly.</p>
+    <button onclick="acknowledge()">Got it!</button>
+  </div>
 
-  document.addEventListener('DOMContentLoaded', () => {
-    // Show gate only once per device
-    if (localStorage.getItem("youAreAppAgreed") === "true") {
-      show("notice", false);
-      show("generator", true);
-    } else {
-      show("notice", true);
-      show("generator", false);
+  <div id="generator">
+    <img src="YAgraphic.png" alt="You Are logo" class="logo" />
+    <h1>"YOU ARE..." from Playful Heart Parenting</h1>
+    <button onclick="generatePrompt()">You are...</button>
+    <div id="prompt">Tap the button to get a random prompt and act it out. No right or wrong way — just have fun!</div>
+
+    <p style="font-size: 0.9rem; color: #777; margin-top: 3rem; max-width: 90%; margin-left: auto; margin-right: auto;">
+      © 2025 Mia Wisinski, Playful Heart Parenting. For personal use only by purchasers. Please do not share without permission.
+    </p>
+    <div style="margin-top: 3rem;">
+      <h2>Submit Your Own!</h2>
+      <p style="font-size: 1rem; max-width: 600px; margin: 0 auto;">
+        Got an idea for a "You Are..." prompt? Submit it below — we may feature it in a future update and credit your first name.
+      </p>
+      <button onclick="window.open('https://docs.google.com/forms/d/1cdh3JoLDVkj3GtvQx6wHe1oRtgHV675EaDDyD1ZoIIs/edit?usp=drivesdk', '_blank')">
+        Submit Your Idea
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function acknowledge() {
+      localStorage.setItem("youAreAppAgreed", "true");
+      document.getElementById("notice").style.display = "none";
+      document.getElementById("generator").style.display = "block";
     }
 
-    // Wire up buttons (no inline onclick needed)
-    const ackBtn = document.querySelector('#notice button');
-    if (ackBtn) ackBtn.addEventListener('click', acknowledge);
+    if (localStorage.getItem("youAreAppAgreed") === "true") {
+      document.getElementById("notice").style.display = "none";
+      document.getElementById("generator").style.display = "block";
+    }
 
-    const genBtn = document.querySelector('#generator button');
-    if (genBtn) genBtn.addEventListener('click', generatePrompt);
-  });
+    const prompts = [
+      "A baby penguin slipping around on the ice for the first time",
+      "A sloth that accidentally just drank a bunch of coffee",
+      "A bunch of weird emojis that never get used, finally getting texted to someone",
+      "A bunny trying to chase its own tail even though its tail is really short",
+      "A snowman melting on a hot day",
+      "A snowflake falling from the sky and being so excited to become part of snowman",
+      "A T-rex stomping over to its friend’s house for tea",
+      "A dandelion blowing in the wind and all the seeds are about to float off into the air",
+      "A lemon getting squeezed into lemonade",
+      "An earthworm trying to find its way up out of the soil on a rainy day",
+      "A cake getting baked in the oven",
+      "The finale of a fireworks show",
+      "An elephant who accidentally just grew a second trunk and is running around trying to find a mirror to see what’s going on",
+      "A baby’s diaper exploding with poop",
+      "A fart that’s been held in for 3 hours and is finally being let loose",
+      "A farmer who didn’t realize they sat on a fire ant hill and now ants are crawling up their overalls!",
+      "All the water balloons getting tossed around in a water balloon fight",
+      "A frog on a pogo stick bragging to his friends how high he can jump",
+      "A monkey swinging from tree to tree showing off for everyone watching her at the zoo",
+      "A bowl of ice cream melting in the hot sun",
+      "A snail showing off its shell in the snail parade",
+      "A turtle who just got a touchdown in a football game",
+      "A lizard who is trying out for the Olympic gymnastics team",
+      "A raccoon diving into a dumpster",
+      "A race car zooming across the finish line and then falling asleep because it’s so tired",
+      "A firefly scared of its own glow-in-the-dark booty every time it lights up",
+      "A giraffe showing off that it can reach the tallest branch of the tree",
+      "An onion being sliced up and put into a pot of soup",
+      "A booger getting picked and flung out the window of a car",
+      "An astronaut trying to lie down for a nap but there’s no gravity so she keeps floating up",
+      "An old whoopee cushion getting used for the last time because it POPS",
+      "A balloon who was let go and is flying all over the room",
+      "A flea hanging onto a dog’s tail as it wags and trying not to fall off",
+      "A chair getting sat on by an elephant and one of its legs breaking",
+      "An old dusty book being opened for the first time in 20 years",
+      "A jumping spider trying to not get stepped on in a crowd",
+      "A caterpillar winding itself up into a cocoon and turning into a butterfly",
+      "A grocery bag too full of groceries and then it busts the groceries fall all over the driveway",
+      "A stinky sock getting washed in the washing machine",
+      "A squirrel sneaking in to a treehouse to steal a kid’s leftover crackers",
+      "A leaf floating down the river and then realizing it’s heading straight for a waterfall",
+      "A fish who is swimming then gets trapped in a fart bubble",
+      "The last piece of a puzzle finally getting put in place",
+      "A narwhal trying to sword fight with its tusk",
+      "A hippo getting its teeth cleaned at the dentist",
+      "A nervous frog hopping back and forth from lily pad to lily pad",
+      "A bowl of cereal getting dropped and spilled all over the floor",
+      "A raindrop falling from a cloud for the first time",
+      "A 100-year-old moose trying to breakdance",
+      "A shark who’s trying to make friends with some seals but the seals keep swimming away",
+      "A seal who sees a shark coming",
+      "A giant wave crashing on the shore of the beach",
+      "A mouse who accidentally snuck onto a hot air balloon ride and is realizing its up in the sky",
+      "A popsicle finally being taken out of the freezer and being so happy because it was super cold in there",
+      "A smoothie getting blended up in the blender",
+      "The peanut butter in a peanut butter and jelly sandwich that’s getting made who is so excited to finally meet the jelly",
+      "A seed getting planted and growing into the tallest tree in the world",
+      "A magic beanstalk growing high into the clouds",
+      "A whole bottle of maple syrup that got dropped and is slowly spilling all over the kitchen floor",
+      "A plastic bag blowing in the wind",
+      "A balloon getting blown up too big and then it pops",
+      "An octopus trying to ice skate",
+      "A kangaroo in a hopping contest",
+      "A dog chasing its own tail and then accidentally biting it",
+      "A giant balloon float in a parade that accidentally gets let go of and is flying up into outer space",
+      "A spider trying to spin a web bigger than its spider neighbor (who has the biggest web in the neighborhood)",
+      "A ladybug that got stuck on its back and is trying to flip over",
+      "A pancake getting flipped in the pan",
+      "A hippo swinging on a swing at the playground",
+      "A piece of chocolate melting in someone’s pocket",
+      "A big gust of cold wind blowing through a door when it gets opened",
+      "A goldfish falling asleep in class at the school of fish",
+      "A proud poodle showing off its new hairdo at a dog show",
+      "Seaweed swaying in the sea",
+      "A hermit crab leaving its shell and trying out a bunch of new empty shells to find the perfect new home! (Fun fact: hermit crabs actually do this!)",
+      "A fly zooming around and then getting caught by a frog’s tongue",
+      "A grasshopper trying to hop over a huge piece of dog poop that is in its way",
+      "A bird trying to make a nest in under 10 seconds because it’s about to storm",
+      "Lightning shooting down from the sky in a lightning storm",
+      "A scorpion trying to do yoga",
+      "A tired elevator going up and down and stopping on every floor and it can’t wait for the work day to be over",
+      "A mermaid who just got her tail tangled up in a bunch of seaweed",
+      "A snake slithering across the rocks on a hot day",
+        "A roly poly bug who gets startled by a kid and curls up into a ball",
+        "A heavy rain cloud floating in the sky and then finally raining out all its rain",
+        "A windmill on a very windy day",
+        "A pinwheel getting blown around by a very excited kid",
+        "A roll of toilet paper that fell on the bathroom floor and is unraveling as it rolls across the room",
+        "A tadpole turning into a frog and can’t believe that it’s losing its tail and growing legs",
+        "The early bird pecking for worms and there are so many worms to choose from it can’t decide",
+        "A pot of boiling water on the stove",
+        "A cooked spaghetti noodle getting thrown to see if it’s done",
+        "A tiger cub chasing its tail but always spinning the wrong way",
+        "A balloon getting twisted into a balloon animal",
+        "A crab scuttling away from a wave",
+        "A sunflower slowly turning its head to follow the sun",
+        "A bag of popcorn in the microwave that got cooked a little too long",
+        "A sleepy turtle slowly climbing onto a log to sunbathe",
+        "A piece of tape that keeps sticking to itself no matter what",
+        "A squirrel frantically burying an acorn before any of the other squirrels see",
+        "A dog digging in the dirt and finding its favorite dog toy that it forgot it buried last week",
+        "A candle on a birthday cake melting because the birthday kid is taking a long time to blow their candles out",
+        "A seagull swooping down to steal a french fry from a man on the beach",
+        "A kite getting flown on a windy day",
+        "A marshmallow melting in a fresh mug of hot chocolate",
+        "A hamster sneakily stuffing its cheeks with snacks when nobody is looking",
+        "A cat stretching in a sunny window",
+        "A volcano that’s been asleep for 200 years but just decides it’s time to wake up and explode",
+        "A puddle drying up in the hot sun",
+        "A giant wave rolling in and crashing on the beach",
+        "A caterpillar munching through the most delicious leaf on the tree",
+        "A goldfish swimming laps in its bowl for its morning exercise",
+        "A dragonfly showing off how fast it can fly around the garden",
+        "A big juicy blueberry getting squished",
+        "A bee buzzing from flower to flower trying to pick the perfect one to land on",
+        "A popsicle melting and dripping down the stick",
+        "A spider in a web-spinning contest trying to spin the biggest web in under a minute",
+        "All the leftover food in someone’s teeth getting flossed out",
+        "A frog trying to leaping onto a lilly pad but it misses and falls into the pond",
+        "A lonely cloud floating across the sky looking for another cloud friend",
+        "A snowman being built but then getting knocked down",
+        "A bubble getting blown and then floating all the way across the yard and popping on a piece of grass",
+        "A pencil rolling off a desk",
+        "A hedgehog curling up into a ball for a nap",
+        "A piece of toast popping up out of the toaster and being so surprised it’s toasted",
+        "A yo-yo going down and then shooting back up, having the time of its life",
+        "A mailbox flag going up when there’s mail inside and being so excited to announce it to the mailman",
+        "An apple falling from the apple tree and landing in a goat’s mouth",
+        "A tire swing being spun round and round and then unwinding really fast",
+        "A clock ticking louder and louder before the alarm",
+        "A banana getting peeled",
+        "A zipper getting stuck halfway up a jacket",
+        "A sailboat whose sail gets opened up and a big gust of wind blows straight into it",
+        "A stick of butter slowly melting on warm toast",
+        "A banana slug slowly making its way into a flower pot",
+        "A paper airplane getting folded up and then gliding across the room",
+        "A wind chime jingling in the breeze",
+        "A ladybug climbing up a blade of grass and then taking off to go flying",
+        "A rubber band being stretched as far as it can go and then snapping",
+        "Ear wax getting cleaned out of an ear",
+        "A snot bubble accidentally getting shot out of someone’s nose when they sneeze",
+        "A piece of paper getting crumpled up and thrown into the recycling bin",
+        "A birthday present being unwrapped",
+        "A piece of dirt getting washed down the drain",
+        "The germ on someone’s hand getting washed away with soap",
+        "An electric toothbrush brushing someone’s teeth",
+        "A beaded bracelet getting broken and its beads spilling all over the floor",
+        "A skunk that gets startled by its own shadow and sprays its skunk spray into the air",
+        "A soda can that got shaken up and is being opened…",
+        "A cow that desperately wants to be a lapdog. (submitted by a friend! 🥰)",
+        "A duck trying to ride on a broken skateboard (submitted by Olivia 🥰)",
+        "A butterfly emerging from its chrysalis and is very surprised it's no longer a caterpillar. (submitted by Olivia 🥰)",
+        "A hippo doing a cannonball into the pool",
+        "A lizard in disguise trying to sneak into a turtle party",
+        "A brand new hot air balloon getting filled with air for the first time",
+        "A button squeezing into the buttonhole of a sweater",
+        "A T-rex trying to put on pajamas bottoms",
+        "A very sleepy kangaroo trying to stay up and hop on the bed past its bedtime"
+    ];
 
-  // ----- Prompts (FIX: ensure the comma after the elevator line; do NOT duplicate list) -----
-  const prompts = [
-    "A baby penguin slipping around on the ice for the first time",
-    "A sloth that accidentally just drank a bunch of coffee",
-    "A bunch of weird emojis that never get used, finally getting texted to someone",
-    "A bunny trying to chase its own tail even though its tail is really short",
-    "A snowman melting on a hot day",
-    "A snowflake falling from the sky and being so excited to become part of snowman",
-    "A T-rex stomping over to its friend’s house for tea",
-    "A dandelion blowing in the wind and all the seeds are about to float off into the air",
-    "A lemon getting squeezed into lemonade",
-    "An earthworm trying to find its way up out of the soil on a rainy day",
-    "A cake getting baked in the oven",
-    "The finale of a fireworks show",
-    "An elephant who accidentally just grew a second trunk and is running around trying to find a mirror to see what’s going on",
-    "A baby’s diaper exploding with poop",
-    "A fart that’s been held in for 3 hours and is finally being let loose",
-    "A farmer who didn’t realize they sat on a fire ant hill and now ants are crawling up their overalls!",
-    "All the water balloons getting tossed around in a water balloon fight",
-    "A frog on a pogo stick bragging to his friends how high he can jump",
-    "A monkey swinging from tree to tree showing off for everyone watching her at the zoo",
-    "A bowl of ice cream melting in the hot sun",
-    "A snail showing off its shell in the snail parade",
-    "A turtle who just got a touchdown in a football game",
-    "A lizard who is trying out for the Olympic gymnastics team",
-    "A raccoon diving into a dumpster",
-    "A race car zooming across the finish line and then falling asleep because it’s so tired",
-    "A firefly scared of its own glow-in-the-dark booty every time it lights up",
-    "A giraffe showing off that it can reach the tallest branch of the tree",
-    "An onion being sliced up and put into a pot of soup",
-    "A booger getting picked and flung out the window of a car",
-    "An astronaut trying to lie down for a nap but there’s no gravity so she keeps floating up",
-    "An old whoopee cushion getting used for the last time because it POPS",
-    "A balloon who was let go and is flying all over the room",
-    "A flea hanging onto a dog’s tail as it wags and trying not to fall off",
-    "A chair getting sat on by an elephant and one of its legs breaking",
-    "An old dusty book being opened for the first time in 20 years",
-    "A jumping spider trying to not get stepped on in a crowd",
-    "A caterpillar winding itself up into a cocoon and turning into a butterfly",
-    "A grocery bag too full of groceries and then it busts the groceries fall all over the driveway",
-    "A stinky sock getting washed in the washing machine",
-    "A squirrel sneaking in to a treehouse to steal a kid’s leftover crackers",
-    "A leaf floating down the river and then realizing it’s heading straight for a waterfall",
-    "A fish who is swimming then gets trapped in a fart bubble",
-    "The last piece of a puzzle finally getting put in place",
-    "A narwhal trying to sword fight with its tusk",
-    "A hippo getting its teeth cleaned at the dentist",
-    "A nervous frog hopping back and forth from lily pad to lily pad",
-    "A bowl of cereal getting dropped and spilled all over the floor",
-    "A raindrop falling from a cloud for the first time",
-    "A 100-year-old moose trying to breakdance",
-    "A shark who’s trying to make friends with some seals but the seals keep swimming away",
-    "A seal who sees a shark coming",
-    "A giant wave crashing on the shore of the beach",
-    "A mouse who accidentally snuck onto a hot air balloon ride and is realizing its up in the sky",
-    "A popsicle finally being taken out of the freezer and being so happy because it was super cold in there",
-    "A smoothie getting blended up in the blender",
-    "The peanut butter in a peanut butter and jelly sandwich that’s getting made who is so excited to finally meet the jelly",
-    "A seed getting planted and growing into the tallest tree in the world",
-    "A magic beanstalk growing high into the clouds",
-    "A whole bottle of maple syrup that got dropped and is slowly spilling all over the kitchen floor",
-    "A plastic bag blowing in the wind",
-    "A balloon getting blown up too big and then it pops",
-    "An octopus trying to ice skate",
-    "A kangaroo in a hopping contest",
-    "A dog chasing its own tail and then accidentally biting it",
-    "A giant balloon float in a parade that accidentally gets let go of and is flying up into outer space",
-    "A spider trying to spin a web bigger than its spider neighbor (who has the biggest web in the neighborhood)",
-    "A ladybug that got stuck on its back and is trying to flip over",
-    "A pancake getting flipped in the pan",
-    "A hippo swinging on a swing at the playground",
-    "A piece of chocolate melting in someone’s pocket",
-    "A big gust of cold wind blowing through a door when it gets opened",
-    "A goldfish falling asleep in class at the school of fish",
-    "A proud poodle showing off its new hairdo at a dog show",
-    "Seaweed swaying in the sea",
-    "A hermit crab leaving its shell and trying out a bunch of new empty shells to find the perfect new home! (Fun fact: hermit crabs actually do this!)",
-    "A fly zooming around and then getting caught by a frog’s tongue",
-    "A grasshopper trying to hop over a huge piece of dog poop that is in its way",
-    "A bird trying to make a nest in under 10 seconds because it’s about to storm",
-    "Lightning shooting down from the sky in a lightning storm",
-    "A scorpion trying to do yoga",
-    "A tired elevator going up and down and stopping on every floor and it can’t wait for the work day to be over", 
-    "A mermaid who just got her tail tangled up in a bunch of seaweed",
-  "A snake slithering across the rocks on a hot day",
-  "A roly poly bug who gets startled by a kid and curls up into a ball",
-  "A heavy rain cloud floating in the sky and then finally raining out all its rain",
-  "A windmill on a very windy day",
-  "A pinwheel getting blown around by a very excited kid",
-  "A roll of toilet paper that fell on the bathroom floor and is unraveling as it rolls across the room",
-  "A tadpole turning into a frog and can’t believe that it’s losing its tail and growing legs",
-  "The early bird pecking for worms and there are so many worms to choose from it can’t decide",
-  "A pot of boiling water on the stove",
-  "A cooked spaghetti noodle getting thrown to see if it’s done",
-  "A tiger cub chasing its tail but always spinning the wrong way",
-  "A balloon getting twisted into a balloon animal",
-  "A crab scuttling away from a wave",
-  "A sunflower slowly turning its head to follow the sun",
-  "A bag of popcorn in the microwave that got cooked a little too long",
-  "A sleepy turtle slowly climbing onto a log to sunbathe",
-  "A piece of tape that keeps sticking to itself no matter what",
-  "A squirrel frantically burying an acorn before any of the other squirrels see",
-  "A dog digging in the dirt and finding its favorite dog toy that it forgot it buried last week",
-  "A candle on a birthday cake melting because the birthday kid is taking a long time to blow their candles out",
-  "A seagull swooping down to steal a french fry from a man on the beach",
-  "A kite getting flown on a windy day",
-  "A marshmallow melting in a fresh mug of hot chocolate",
-  "A hamster sneakily stuffing its cheeks with snacks when nobody is looking",
-  "A cat stretching in a sunny window",
-  "A volcano that’s been asleep for 200 years but just decides it’s time to wake up and explode",
-  "A puddle drying up in the hot sun",
-  "A giant wave rolling in and crashing on the beach",
-  "A caterpillar munching through the most delicious leaf on the tree",
-  "A goldfish swimming laps in its bowl for its morning exercise",
-  "A dragonfly showing off how fast it can fly around the garden",
-  "A big juicy blueberry getting squished",
-  "A bee buzzing from flower to flower trying to pick the perfect one to land on",
-  "A popsicle melting and dripping down the stick",
-  "A spider in a web-spinning contest trying to spin the biggest web in under a minute",
-  "All the leftover food in someone’s teeth getting flossed out",
-  "A frog trying to leaping onto a lilly pad but it misses and falls into the pond",
-  "A lonely cloud floating across the sky looking for another cloud friend",
-  "A snowman being built but then getting knocked down",
-  "A bubble getting blown and then floating all the way across the yard and popping on a piece of grass",
-  "A pencil rolling off a desk",
-  "A hedgehog curling up into a ball for a nap",
-  "A piece of toast popping up out of the toaster and being so surprised it’s toasted",
-  "A yo-yo going down and then shooting back up, having the time of its life",
-  "A mailbox flag going up when there’s mail inside and being so excited to announce it to the mailman",
-  "An apple falling from the apple tree and landing in a goat’s mouth",
-  "A tire swing being spun round and round and then unwinding really fast",
-  "A clock ticking louder and louder before the alarm",
-  "A banana getting peeled",
-  "A zipper getting stuck halfway up a jacket",
-  "A sailboat whose sail gets opened up and a big gust of wind blows straight into it",
-  "A stick of butter slowly melting on warm toast",
-  "A banana slug slowly making its way into a flower pot",
-  "A paper airplane getting folded up and then gliding across the room",
-  "A wind chime jingling in the breeze",
-  "A ladybug climbing up a blade of grass and then taking off to go flying",
-  "A rubber band being stretched as far as it can go and then snapping",
-  "Ear wax getting cleaned out of an ear",
-  "A snot bubble accidentally getting shot out of someone’s nose when they sneeze",
-  "A piece of paper getting crumpled up and thrown into the recycling bin",
-  "A birthday present being unwrapped",
-  "A piece of dirt getting washed down the drain",
-  "The germ on someone’s hand getting washed away with soap",
-  "An electric toothbrush brushing someone’s teeth",
-  "A beaded bracelet getting broken and its beads spilling all over the floor",
-  "A skunk that gets startled by its own shadow and sprays its skunk spray into the air",
-  "A soda can that got shaken up and is being opened…",
-  "A cow that desperately wants to be a lapdog. (submitted by a friend! 🥰)",
-  "A duck trying to ride on a broken skateboard (submitted by Olivia 🥰)",
-  "A butterfly emerging from its chrysalis and is very surprised it's no longer a caterpillar. (submitted by Olivia 🥰)",
-  "A hippo doing a cannonball into the pool",
-  "A lizard in disguise trying to sneak into a turtle party",
-  "A brand new hot air balloon getting filled with air for the first time",
-  "A button squeezing into the buttonhole of a sweater",
-  "A T-rex trying to put on pajamas bottoms",
-  "A very sleepy kangaroo trying to stay up and hop on the bed past its bedtime"
-  ];
-
-  // ----- Generator -----
-  function generatePrompt() {
-    const output = document.getElementById("prompt");
-    output.innerText = "...";
-    setTimeout(() => {
-      const i = Math.floor(Math.random() * prompts.length);
-      output.innerText = prompts[i];
-    }, 400);
-  }
-</script>
+    function generatePrompt() {
+      const output = document.getElementById("prompt");
+      output.innerText = "...";
+      setTimeout(() => {
+        const randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+        output.innerText = randomPrompt;
+      }, 400);
+    }
+  </script>
+</body>
+</html>
