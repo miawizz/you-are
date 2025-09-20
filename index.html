@@ -767,5 +767,15 @@
     updateSaveButton();
     saveState(STATE);
   </script>
+    <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/you-are/service-worker.js', { scope: '/you-are/' })
+        .catch(function(err) {
+          console.log('Service worker registration failed:', err);
+        });
+    });
+  }
+  </script>
 </body>
 </html>
