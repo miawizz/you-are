@@ -111,9 +111,34 @@
       margin-top: 3rem; max-width: 90%;
       margin-left: auto; margin-right: auto;
     }
+    /* Back to Hub button — consistent with Act Out That Sound */
+a.home-button{
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  display: inline-block;
+  background: rgba(0,0,0,.75);
+  color: #fff !important;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  z-index: 10002;
+}
+
+/* Push content down so button never overlaps */
+body{
+  padding-top: 3.5rem;
+}
+
   </style>
 </head>
 <body>
+    <a href="https://miawizz.github.io/php-app-hub/" class="home-button">
+  ← Back to Hub
+</a>
   <!-- Place this snippet right after <body> in each app -->
 <style>
   /* Minimal, brand‑agnostic styling */
