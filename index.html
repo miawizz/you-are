@@ -11,6 +11,10 @@
   <link rel="manifest" href="/you-are/manifest.webmanifest">
 
   <style>
+.circle-mode .home-button{
+  display:none !important;
+}
+    
     :root{
       --cream:#fff9f3; --ink:#3c3c3c; --brand:#127490; --accent:#b24627; --accent-2:#c95e3c;
       --dash:#f8b934; --muted:#6b7f88;
@@ -666,6 +670,17 @@ body{
       <em>Tip: If you’re viewing in the app, press and hold this button, copy the link, then open it in your browser to download/print.</em>
   </p>
 </div>
+
+<script>
+(function () {
+  const isCircle =
+    new URLSearchParams(window.location.search).get("circle") === "1";
+
+  if (isCircle) {
+    document.body.classList.add("circle-mode");
+  }
+})();
+</script>
   
 </body>
 </html>
