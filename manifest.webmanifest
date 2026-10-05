@@ -1,11 +1,11 @@
 {
-  "name": "You Are…",
-  "short_name": "You Are",
+  "name": "Act This Out",
+  "short_name": "Act This Out",
   "start_url": "/you-are/",
   "scope": "/you-are/",
   "display": "standalone",
-  "background_color": "#fffcf5",
-  "theme_color": "#699eb0",
+  "background_color": "#fff9f3",
+  "theme_color": "#127490",
   "icons": [
     {
       "src": "/you-are/icon-192.png",
