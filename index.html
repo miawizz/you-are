@@ -3,392 +3,701 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>You Are...</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <meta name="theme-color" content="#699eb0" />
-<link rel="icon" type="image/png" href="/you-are/icon-192.png">
-<link rel="apple-touch-icon" href="/you-are/icon-192.png">
+
+  <title>Act This Out</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <meta name="theme-color" content="#127490" />
+
+  <link rel="icon" type="image/png" href="/you-are/icon-192.png">
+  <link rel="apple-touch-icon" href="/you-are/icon-192.png">
   <link rel="manifest" href="/you-are/manifest.webmanifest">
 
   <style>
-.circle-mode .home-button{
-  display:none !important;
-}
-    
-    :root{
-      --cream:#fff9f3; --ink:#3c3c3c; --brand:#127490; --accent:#b24627; --accent-2:#c95e3c;
-      --dash:#f8b934; --muted:#6b7f88;
+    :root {
+      --cream: #fff9f3;
+      --ink: #3c3c3c;
+      --teal: #127490;
+      --pink: #d94b7f;
+      --yellow: #f8b934;
+      --soft: #f3c58f;
+      --peach: #ffe9d6;
+      --muted: #6b7f88;
+      --white: #ffffff;
     }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
+      padding: 3.75rem 1.25rem 3rem;
       background: var(--cream);
-      font-family: 'Poppins', sans-serif;
-      text-align: center;
-      padding: 2rem;
       color: var(--ink);
+      font-family: "Poppins", sans-serif;
+      text-align: center;
+    }
+
+    main {
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .circle-mode .home-button {
+      display: none !important;
+    }
+
+    a.home-button {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      display: inline-block;
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff !important;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 10002;
+    }
+
+    .logo {
+      display: block;
+      width: 170px;
+      max-width: 48vw;
+      height: auto;
+      margin: 0 auto 1rem;
+    }
+
+    h1 {
+      margin: 0 0 1.4rem;
+      color: var(--teal);
+      font-size: clamp(1.7rem, 5vw, 2.35rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+    }
+
+    .generator-card {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 1.25rem;
+      background: var(--soft);
+      border-radius: 28px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .prompt-card {
+      min-height: 190px;
+      padding: 1.5rem 1.25rem;
+      background: var(--teal);
+      border-radius: 20px;
+      color: var(--cream);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .prompt-label {
+      margin-bottom: 0.75rem;
+      color: var(--yellow);
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    #prompt {
+      max-width: 650px;
+      margin: 0;
+      color: var(--cream);
+      font-size: clamp(1.15rem, 4vw, 1.45rem);
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    #prompt.start-message {
+      font-size: 1rem;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .btns {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 1rem;
+    }
+
+    button,
+    .link-button {
+      appearance: none;
+      border: none;
+      border-radius: 999px;
+      padding: 0.9rem 1.25rem;
+      font-family: "Poppins", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    button:hover,
+    .link-button:hover {
+      transform: translateY(-1px);
+    }
+
+    button:active,
+    .link-button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-main {
+      min-width: 190px;
+      background: var(--pink);
+      color: #fff;
+    }
+
+    .btn-nav {
+      min-width: 110px;
+      background: var(--teal);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: var(--peach);
+      color: #6b3a28;
+    }
+
+    .section-card {
+      width: 100%;
+      max-width: 760px;
+      margin: 1.5rem auto 0;
+      padding: 1.5rem;
+      background: var(--white);
+      border-radius: 22px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-card h2,
+    .section-card h3 {
+      margin: 0 0 0.85rem;
+      color: var(--teal);
+      font-weight: 800;
+    }
+
+    .section-card p {
+      max-width: 650px;
+      margin: 0.65rem auto;
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    .how-to-play p:last-child {
+      margin-bottom: 0;
+    }
+
+    #favWrap {
+      text-align: left;
+    }
+
+    #favHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    #favHeader h2 {
       margin: 0;
     }
-    .logo { max-width: 150px; margin-bottom: 1rem; }
-    h1 { color: var(--brand); margin-bottom: 0.5rem; font-weight: 600; font-size: 1.6rem; }
-    #prompt {
-      margin: 2rem auto;
-      font-size: 1.25rem;
-      padding: 1.5rem;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 16px;
-      border: 2px dashed var(--dash);
-      max-width: 90%;
-      min-height: 120px;
-      backdrop-filter: blur(6px);
-    }
-    .btns { display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap; margin-top:1rem; }
-    button {
-      background-color: var(--accent);
-      color: white;
-      border: none;
-      padding: 1rem 1.2rem;
-      border-radius: 30px;
-      font-size: 1.05rem;
-      cursor: pointer;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(0,0,0,.08);
-    }
-    button:hover { background-color: var(--accent-2); }
-    button[disabled]{opacity:.5; cursor:not-allowed;}
-    .btn-secondary{ background:#ffe9d6; color:#6b3a28; }
-    .btn-secondary:hover{ background:#ffdcbf; }
 
-    .cover {
-      margin-top: 2rem;
-      width: 250px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    #favHeader .btns {
+      margin-top: 0;
     }
 
-#generator { display: block; }    
+    #favList {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
 
+    .favItem {
+      padding: 12px 14px;
+      background: var(--cream);
+      border-radius: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
 
-    /* Favorites area */
-    #favWrap{ max-width:860px; margin:2rem auto 0; text-align:left; }
-    #favHeader{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
-    #favHeader h3{ margin:0; color:#7a3e2e; font-size:1.1rem; }
-    #favList{
-      list-style:none; padding:0; margin:12px 0 0;
-      display:grid; grid-template-columns:1fr; gap:10px;
+    .favText {
+      font-size: 0.95rem;
+      line-height: 1.4;
     }
-    .favItem{
-      background:#fff; border:1px solid #ffdcbf; border-radius:14px; padding:12px 14px;
-      display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
-      box-shadow:0 2px 8px rgba(0,0,0,.04);
-    }
-    .favText{ font-size:.98rem; line-height:1.35rem; }
-    .favActions{ display:flex; gap:8px; flex-shrink:0; }
-    .iconBtn{
-      border:0; background:#ffe9d6; color:#6b3a28; padding:.45rem .7rem; border-radius:10px; font-size:.9rem; cursor:pointer;
-    }
-    .iconBtn:hover{ background:#ffdcbf; }
-    .muted{ color:var(--muted); font-size:.9rem; }
 
-    /* Tiny toast */
-    #toast{
-      position:fixed; left:50%; bottom:24px; transform:translateX(-50%);
-      background:#127490; color:#fff; padding:10px 14px; border-radius:12px;
-      box-shadow:0 8px 24px rgba(0,0,0,.18); opacity:0; pointer-events:none;
-      transition:opacity .25s ease, transform .25s ease;
-      font-size:.95rem; z-index:9999;
+    .favActions {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
     }
-    #toast.show{ opacity:1; transform:translateX(-50%) translateY(-4px); }
+
+    .iconBtn {
+      padding: 0.45rem 0.7rem;
+      border-radius: 10px;
+      background: var(--peach);
+      color: #6b3a28;
+      font-size: 0.82rem;
+      box-shadow: none;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .submit-button {
+      display: inline-block;
+      margin-top: 0.75rem;
+      background: var(--pink);
+      color: #fff;
+    }
+
+    .print-button {
+      display: inline-block;
+      margin-top: 0.75rem;
+      background: var(--teal);
+      color: #fff;
+    }
+
+    .print-tip {
+      color: var(--muted);
+      font-size: 0.82rem !important;
+    }
 
     footer {
-      font-size: 0.9rem; color: #777;
-      margin-top: 3rem; max-width: 90%;
-      margin-left: auto; margin-right: auto;
+      max-width: 760px;
+      margin: 2rem auto 0;
+      color: #777;
+      font-size: 0.82rem;
+      line-height: 1.5;
     }
-    /* Back to Hub button — consistent with Act Out That Sound */
-a.home-button{
-  position: fixed;
-  top: 12px;
-  left: 12px;
-  display: inline-block;
-  background: rgba(0,0,0,.75);
-  color: #fff !important;
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,.15);
-  z-index: 10002;
-}
 
-/* Push content down so button never overlaps */
-body{
-  padding-top: 3.5rem;
-}
+    #toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      padding: 10px 14px;
+      background: var(--teal);
+      color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      font-size: 0.95rem;
+      z-index: 9999;
+    }
 
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-4px);
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding-left: 0.9rem;
+        padding-right: 0.9rem;
+      }
+
+      .generator-card {
+        padding: 0.9rem;
+        border-radius: 22px;
+      }
+
+      .prompt-card {
+        min-height: 180px;
+        padding: 1.3rem 1rem;
+      }
+
+      .section-card {
+        padding: 1.25rem 1rem;
+      }
+
+      .favItem {
+        flex-direction: column;
+      }
+
+      .favActions {
+        width: 100%;
+      }
+    }
   </style>
 </head>
+
 <body>
-    <a href="https://miawizz.github.io/php-app-hub/" class="home-button">
-  ← Back to Hub
-</a>
- 
+
+  <a href="https://miawizz.github.io/php-app-hub/" class="home-button">
+    ← Back to Hub
+  </a>
+
+  <main id="generator">
+
+    <img
+      src="act-this-out-graphic.png"
+      alt="Act This Out logo"
+      class="logo"
+    >
+
+    <h1>ACT THIS OUT:</h1>
+
+    <section class="generator-card" aria-label="Act This Out prompt generator">
+
+      <div class="prompt-card">
+        <div class="prompt-label">ACT THIS OUT:</div>
+
+        <div id="prompt" class="start-message" aria-live="polite">
+          Tap the button to get your first acting prompt!
+        </div>
+      </div>
+
+      <div class="btns">
+        <button id="btnNext" class="btn-main">
+          Act This Out!
+        </button>
+      </div>
+
+      <div class="btns">
+        <button id="btnBack" class="btn-nav">Back</button>
+        <button id="btnFwd" class="btn-nav">Forward</button>
+      </div>
+
+      <div class="btns">
+        <button id="btnSave" class="btn-secondary">
+          Save to Favorites
+        </button>
+      </div>
+
+    </section>
 
 
-  <!-- App UI -->
-  <div id="generator" aria-live="polite">
-    <img src="YAgraphic.png" alt="You Are logo" class="logo" />
-    <h1>"YOU ARE..." from Playful Heart Parenting</h1>
+    <section class="section-card how-to-play">
+      <h2>HOW TO PLAY</h2>
 
-    <!-- Row 1 -->
-    <div class="btns">
-      <button id="btnNext">You are…</button>
-    </div>
-    <!-- Row 2 -->
-    <div class="btns">
-      <button id="btnBack">Back</button>
-      <button id="btnFwd">Forward</button>
-    </div>
-    <!-- Row 3 -->
-    <div class="btns">
-      <button id="btnSave" class="btn-secondary">Save to Favorites</button>
-    </div>
-
-    <div id="prompt">Tap the button to get a random prompt and act it out. No right or wrong way — just have fun!</div>
-
-    <footer>
-      © 2025 Mia Wisinski, Playful Heart Parenting. For personal use only by purchasers. Please do not share without permission.
-    </footer>
-
-    <div style="margin-top: 3rem;">
-      <h2>Submit Your Own!</h2>
-      <p style="font-size: 1rem; max-width: 600px; margin: 0 auto;">
-        Got an idea for a "You Are..." prompt? Submit it below — we may feature it in a future update and credit your first name.
+      <p>
+        Tap the button for a silly acting prompt, then act it out using your whole body!
       </p>
-      <button onclick="window.open('https://docs.google.com/forms/d/1cdh3JoLDVkj3GtvQx6wHe1oRtgHV675EaDDyD1ZoIIs/edit?usp=drivesdk', '_blank')">
+
+      <p>
+        Go as big and ridiculous as you want... add sounds, voices, or dialogue if you feel like it.
+      </p>
+
+      <p>
+        <strong>There are no wrong answers.</strong> Just have fun!
+      </p>
+    </section>
+
+
+    <section id="favWrap" class="section-card" aria-labelledby="favTitle">
+
+      <div id="favHeader">
+
+        <h2 id="favTitle">FAVORITES</h2>
+
+        <div class="btns">
+          <button class="btn-secondary" id="btnCopyAll">Copy All</button>
+          <button class="btn-secondary" id="btnClear">Clear</button>
+        </div>
+
+      </div>
+
+      <p class="muted" id="favEmpty">
+        No favorites yet. Save any you love.
+      </p>
+
+      <ul id="favList"></ul>
+
+    </section>
+
+
+    <section class="section-card">
+
+      <h2>SUBMIT YOUR OWN!</h2>
+
+      <p>
+        Got an idea for an Act This Out prompt? Submit it below and we may feature it in a future update and credit your first name.
+      </p>
+
+      <button
+        class="submit-button"
+        onclick="window.open('https://docs.google.com/forms/d/1cdh3JoLDVkj3GtvQx6wHe1oRtgHV675EaDDyD1ZoIIs/edit?usp=drivesdk', '_blank')"
+      >
         Submit Your Idea
       </button>
-    </div>
-  </div>
 
-  <!-- Favorites list -->
-  <section id="favWrap" aria-labelledby="favTitle">
-    <div id="favHeader">
-      <h3 id="favTitle">Favorites</h3>
-      <div class="btns" style="margin-top:0;">
-        <button class="btn-secondary" id="btnCopyAll">Copy All</button>
-        <button class="btn-secondary" id="btnClear">Clear</button>
-      </div>
-    </div>
-    <p class="muted" id="favEmpty">No favorites yet. Save any you love.</p>
-    <ul id="favList"></ul>
-  </section>
+    </section>
 
-  <!-- Tiny toast -->
+
+    <section class="section-card">
+
+      <h2>PRINT &amp; PLAY</h2>
+
+      <p>
+        Prefer screen-free play?
+      </p>
+
+      <a
+        href="you-are-deck.pdf"
+        target="_blank"
+        class="link-button print-button"
+      >
+        Download the Act This Out Print &amp; Play Starter Deck
+      </a>
+
+      <p class="print-tip">
+        Includes 53 favorite prompts from the app. Just print, cut, and play!
+        <br><br>
+        <em>
+          Tip: If you’re viewing in the app, press and hold this button, copy the link, then open it in your browser to download/print.
+        </em>
+      </p>
+
+    </section>
+
+
+    <footer>
+      © 2026 Mia Wisinski, Playful Heart Parenting. For personal use only by purchasers. Please do not share without permission.
+    </footer>
+
+  </main>
+
   <div id="toast" role="status" aria-live="polite"></div>
 
-  <!-- No shuffle.js needed -->
 
   <script>
 
-
-    /* Prompts (unchanged) */
     const prompts = [
-      "A baby penguin slipping around on the ice for the first time",
-      "A sloth that accidentally just drank a bunch of coffee",
-      "A bunch of weird emojis that never get used, finally getting texted to someone",
-      "A bunny trying to chase its own tail even though its tail is really short",
-      "A snowman melting on a hot day",
-      "A snowflake falling from the sky and being so excited to become part of a snowman",
-      "A T-rex stomping over to its friend’s house for tea",
-      "A dandelion blowing in the wind and all the seeds are about to float off into the air",
-      "A lemon getting squeezed into lemonade",
-      "An earthworm trying to find its way up out of the soil on a rainy day",
-      "A cake getting baked in the oven",
-      "The finale of a fireworks show",
-      "An elephant who accidentally just grew a second trunk and is running around trying to find a mirror to see what’s going on",
-      "A baby’s diaper exploding with poop",
-      "A fart that’s been held in for 3 hours and is finally being let loose",
-      "A farmer who didn’t realize they sat on a fire ant hill and now ants are crawling up their overalls!",
-      "All the water balloons getting tossed around in a water balloon fight",
-      "A frog on a pogo stick bragging to his friends how high he can jump",
-      "A monkey swinging from tree to tree showing off for everyone watching her at the zoo",
-      "A bowl of ice cream melting in the hot sun",
-      "A snail showing off its shell in the snail parade",
-      "A turtle who just got a touchdown in a football game",
-      "A lizard who is trying out for the Olympic gymnastics team",
-      "A raccoon diving into a dumpster",
-      "A race car zooming across the finish line and then falling asleep because it’s so tired",
-      "A firefly scared of its own glow-in-the-dark booty every time it lights up",
-      "A giraffe showing off that it can reach the tallest branch of the tree",
-      "An onion being sliced up and put into a pot of soup",
-      "A booger getting picked and flung out the window of a car",
-      "An astronaut trying to lie down for a nap but there’s no gravity so she keeps floating up",
-      "An old whoopee cushion getting used for the last time because it POPS",
-      "A balloon who was let go and is flying all over the room",
-      "A flea hanging onto a dog’s tail as it wags and trying not to fall off",
-      "A chair getting sat on by an elephant and one of its legs breaking",
-      "An old dusty book being opened for the first time in 20 years",
-      "A jumping spider trying to not get stepped on in a crowd",
-      "A caterpillar winding itself up into a cocoon and turning into a butterfly",
-      "A grocery bag too full of groceries and then it busts and the groceries fall all over the driveway",
-      "A stinky sock getting washed in the washing machine",
-      "A squirrel sneaking in to a treehouse to steal a kid’s leftover crackers",
-      "A leaf floating down the river and then realizing it’s heading straight for a waterfall",
-      "A fish who is swimming then gets trapped in a fart bubble",
-      "The last piece of a puzzle finally getting put in place",
-      "A narwhal trying to sword fight with its tusk",
-      "A hippo getting its teeth cleaned at the dentist",
-      "A nervous frog hopping back and forth from lily pad to lily pad",
-      "A bowl of cereal getting dropped and spilled all over the floor",
-      "A raindrop falling from a cloud for the first time",
-      "A 100-year-old moose trying to breakdance",
-      "A shark who’s trying to make friends with some seals but the seals keep swimming away",
-      "A seal who sees a shark coming",
-      "A giant wave crashing on the shore of the beach",
-      "A mouse who accidentally snuck onto a hot air balloon ride and is realizing it's up in the sky",
-      "A popsicle finally being taken out of the freezer and being so happy because it was super cold in there",
-      "A smoothie getting blended up in the blender",
-      "The peanut butter in a peanut butter and jelly sandwich that’s getting made who is so excited to finally meet the jelly",
-      "A seed getting planted and growing into the tallest tree in the world",
-      "A magic beanstalk growing high into the clouds",
-      "A whole bottle of maple syrup that got dropped and is slowly spilling all over the kitchen floor",
-      "A plastic bag blowing in the wind",
-      "A balloon getting blown up too big and then it pops",
-      "An octopus trying to ice skate",
-      "A kangaroo in a hopping contest",
-      "A dog chasing its own tail and then accidentally biting it",
-      "A giant balloon float in a parade that accidentally gets let go of and is flying up into outer space",
-      "A spider trying to spin a web bigger than its spider neighbor (who has the biggest web in the neighborhood)",
-      "A ladybug that got stuck on its back and is trying to flip over",
-      "A pancake getting flipped in the pan",
-      "A hippo swinging on a swing at the playground",
-      "A piece of chocolate melting in someone’s pocket",
-      "A big gust of cold wind blowing through a door when it gets opened",
-      "A goldfish falling asleep in class at the school of fish",
-      "A proud poodle showing off its new hairdo at a dog show",
-      "Seaweed swaying in the sea",
-      "A hermit crab leaving its shell and trying out a bunch of new empty shells to find the perfect new home! (Fun fact: hermit crabs actually do this!)",
-      "A fly zooming around and then getting caught by a frog’s tongue",
-      "A grasshopper trying to hop over a huge piece of dog poop that is in its way",
-      "A bird trying to make a nest in under 10 seconds because it’s about to storm",
-      "Lightning shooting down from the sky in a lightning storm",
-      "A scorpion trying to do yoga",
-      "A tired elevator going up and down and stopping on every floor and it can’t wait for the work day to be over",
-      "A mermaid who just got her tail tangled up in a bunch of seaweed",
-      "A snake slithering across the rocks on a hot day",
-      "A roly poly bug who gets startled by a kid and curls up into a ball",
-      "A heavy rain cloud floating in the sky and then finally raining out all its rain",
-      "A windmill on a very windy day",
-      "A pinwheel getting blown around by a very excited kid",
-      "A roll of toilet paper that fell on the bathroom floor and is unraveling as it rolls across the room",
-      "A tadpole turning into a frog and can’t believe that it’s losing its tail and growing legs",
-      "The early bird pecking for worms and there are so many worms to choose from it can’t decide",
-      "A pot of boiling water on the stove",
-      "A cooked spaghetti noodle getting thrown to see if it’s done",
-      "A tiger cub chasing its tail but always spinning the wrong way",
-      "A balloon getting twisted into a balloon animal",
-      "A crab scuttling away from a wave",
-      "A sunflower slowly turning its head to follow the sun",
-      "A bag of popcorn in the microwave that got cooked a little too long",
-      "A sleepy turtle slowly climbing onto a log to sunbathe",
-      "A piece of tape that keeps sticking to itself no matter what",
-      "A squirrel frantically burying an acorn before any of the other squirrels see",
-      "A dog digging in the dirt and finding its favorite dog toy that it forgot it buried last week",
-      "A candle on a birthday cake melting because the birthday kid is taking a long time to blow their candles out",
-      "A seagull swooping down to steal a french fry from a man on the beach",
-      "A kite getting flown on a windy day",
-      "A marshmallow melting in a fresh mug of hot chocolate",
-      "A hamster sneakily stuffing its cheeks with snacks when nobody is looking",
-      "A cat stretching in a sunny window",
-      "A volcano that’s been asleep for 200 years but just decides it’s time to wake up and explode",
-      "A puddle drying up in the hot sun",
-      "A giant wave rolling in and crashing on the beach",
-      "A caterpillar munching through the most delicious leaf on the tree",
-      "A goldfish swimming laps in its bowl for its morning exercise",
-      "A dragonfly showing off how fast it can fly around the garden",
-      "A big juicy blueberry getting squished",
-      "A bee buzzing from flower to flower trying to pick the perfect one to land on",
-      "A popsicle melting and dripping down the stick",
-      "A spider in a web-spinning contest trying to spin the biggest web in under a minute",
-      "All the leftover food in someone’s teeth getting flossed out",
-      "A frog trying to leap onto a lily pad but it misses and falls into the pond",
-      "A lonely cloud floating across the sky looking for another cloud friend",
-      "A snowman being built but then getting knocked down",
-      "A bubble getting blown and then floating all the way across the yard and popping on a piece of grass",
-      "A pencil rolling off a desk",
-      "A hedgehog curling up into a ball for a nap",
-      "A piece of toast popping up out of the toaster and being so surprised it’s toasted",
-      "A yo-yo going down and then shooting back up, having the time of its life",
-      "A mailbox flag going up when there’s mail inside and being so excited to announce it to the mailman",
-      "An apple falling from the apple tree and landing in a goat’s mouth",
-      "A tire swing being spun round and round and then unwinding really fast",
-      "A clock ticking louder and louder before the alarm",
-      "A banana getting peeled",
-      "A zipper getting stuck halfway up a jacket",
-      "A sailboat whose sail gets opened up and a big gust of wind blows straight into it",
-      "A stick of butter slowly melting on warm toast",
-      "A banana slug slowly making its way into a flower pot",
-      "A paper airplane getting folded up and then gliding across the room",
-      "A wind chime jingling in the breeze",
-      "A ladybug climbing up a blade of grass and then taking off to go flying",
-      "A rubber band being stretched as far as it can go and then snapping",
-      "Ear wax getting cleaned out of an ear",
-      "A snot bubble accidentally getting shot out of someone’s nose when they sneeze",
-      "A piece of paper getting crumpled up and thrown into the recycling bin",
-      "A birthday present being unwrapped",
-      "A piece of dirt getting washed down the drain",
-      "The germ on someone’s hand getting washed away with soap",
-      "An electric toothbrush brushing someone’s teeth",
-      "A beaded bracelet getting broken and its beads spilling all over the floor",
-      "A skunk that gets startled by its own shadow and sprays its skunk spray into the air",
-      "A soda can that got shaken up and is being opened…",
-      "A cow that desperately wants to be a lapdog. (submitted by a friend! 🥰)",
-      "A duck trying to ride on a broken skateboard (submitted by Olivia 🥰)",
-      "A butterfly emerging from its chrysalis and is very surprised it's no longer a caterpillar. (submitted by Olivia 🥰)",
-      "A hippo doing a cannonball into the pool",
-      "A lizard in disguise trying to sneak into a turtle party",
-      "A brand new hot air balloon getting filled with air for the first time",
-      "A button squeezing into the buttonhole of a sweater",
-      "A T-rex trying to put on pajama bottoms",
-      "A very sleepy kangaroo trying to stay up and hop on the bed past its bedtime",
+      "You are a baby penguin slipping around on the ice for the first time",
+      "You are a sloth that accidentally just drank a bunch of coffee",
+      "You are a bunch of weird emojis that never get used, finally getting texted to someone",
+      "You are a bunny trying to chase its own tail even though its tail is really short",
+      "You are a snowman melting on a hot day",
+      "You are a snowflake falling from the sky and being so excited to become part of a snowman",
+      "You are a T-rex stomping over to its friend’s house for tea",
+      "You are a dandelion blowing in the wind and all the seeds are about to float off into the air",
+      "You are a lemon getting squeezed into lemonade",
+      "You are an earthworm trying to find its way up out of the soil on a rainy day",
+      "You are a cake getting baked in the oven",
+      "You are the finale of a fireworks show",
+      "You are an elephant who accidentally just grew a second trunk and is running around trying to find a mirror to see what’s going on",
+      "You are a baby’s diaper exploding with poop",
+      "You are a fart that’s been held in for 3 hours and is finally being let loose",
+      "You are a farmer who didn’t realize they sat on a fire ant hill and now ants are crawling up their overalls!",
+      "You are all the water balloons getting tossed around in a water balloon fight",
+      "You are a frog on a pogo stick bragging to his friends how high he can jump",
+      "You are a monkey swinging from tree to tree showing off for everyone watching her at the zoo",
+      "You are a bowl of ice cream melting in the hot sun",
+      "You are a snail showing off its shell in the snail parade",
+      "You are a turtle who just got a touchdown in a football game",
+      "You are a lizard who is trying out for the Olympic gymnastics team",
+      "You are a raccoon diving into a dumpster",
+      "You are a race car zooming across the finish line and then falling asleep because it’s so tired",
+      "You are a firefly scared of its own glow-in-the-dark booty every time it lights up",
+      "You are a giraffe showing off that it can reach the tallest branch of the tree",
+      "You are an onion being sliced up and put into a pot of soup",
+      "You are a booger getting picked and flung out the window of a car",
+      "You are an astronaut trying to lie down for a nap but there’s no gravity so she keeps floating up",
+      "You are an old whoopee cushion getting used for the last time because it POPS",
+      "You are a balloon who was let go and is flying all over the room",
+      "You are a flea hanging onto a dog’s tail as it wags and trying not to fall off",
+      "You are a chair getting sat on by an elephant and one of its legs breaking",
+      "You are an old dusty book being opened for the first time in 20 years",
+      "You are a jumping spider trying to not get stepped on in a crowd",
+      "You are a caterpillar winding itself up into a cocoon and turning into a butterfly",
+      "You are a grocery bag too full of groceries and then it busts and the groceries fall all over the driveway",
+      "You are a stinky sock getting washed in the washing machine",
+      "You are a squirrel sneaking in to a treehouse to steal a kid’s leftover crackers",
+      "You are a leaf floating down the river and then realizing it’s heading straight for a waterfall",
+      "You are a fish who is swimming then gets trapped in a fart bubble",
+      "You are the last piece of a puzzle finally getting put in place",
+      "You are a narwhal trying to sword fight with its tusk",
+      "You are a hippo getting its teeth cleaned at the dentist",
+      "You are a nervous frog hopping back and forth from lily pad to lily pad",
+      "You are a bowl of cereal getting dropped and spilled all over the floor",
+      "You are a raindrop falling from a cloud for the first time",
+      "You are a 100-year-old moose trying to breakdance",
+      "You are a shark who’s trying to make friends with some seals but the seals keep swimming away",
+      "You are a seal who sees a shark coming",
+      "You are a giant wave crashing on the shore of the beach",
+      "You are a mouse who accidentally snuck onto a hot air balloon ride and is realizing it's up in the sky",
+      "You are a popsicle finally being taken out of the freezer and being so happy because it was super cold in there",
+      "You are a smoothie getting blended up in the blender",
+      "You are the peanut butter in a peanut butter and jelly sandwich that’s getting made who is so excited to finally meet the jelly",
+      "You are a seed getting planted and growing into the tallest tree in the world",
+      "You are a magic beanstalk growing high into the clouds",
+      "You are a whole bottle of maple syrup that got dropped and is slowly spilling all over the kitchen floor",
+      "You are a plastic bag blowing in the wind",
+      "You are a balloon getting blown up too big and then it pops",
+      "You are an octopus trying to ice skate",
+      "You are a kangaroo in a hopping contest",
+      "You are a dog chasing its own tail and then accidentally biting it",
+      "You are a giant balloon float in a parade that accidentally gets let go of and is flying up into outer space",
+      "You are a spider trying to spin a web bigger than its spider neighbor (who has the biggest web in the neighborhood)",
+      "You are a ladybug that got stuck on its back and is trying to flip over",
+      "You are a pancake getting flipped in the pan",
+      "You are a hippo swinging on a swing at the playground",
+      "You are a piece of chocolate melting in someone’s pocket",
+      "You are a big gust of cold wind blowing through a door when it gets opened",
+      "You are a goldfish falling asleep in class at the school of fish",
+      "You are a proud poodle showing off its new hairdo at a dog show",
+      "You are seaweed swaying in the sea",
+      "You are a hermit crab leaving its shell and trying out a bunch of new empty shells to find the perfect new home! (Fun fact: hermit crabs actually do this!)",
+      "You are a fly zooming around and then getting caught by a frog’s tongue",
+      "You are a grasshopper trying to hop over a huge piece of dog poop that is in its way",
+      "You are a bird trying to make a nest in under 10 seconds because it’s about to storm",
+      "You are lightning shooting down from the sky in a lightning storm",
+      "You are a scorpion trying to do yoga",
+      "You are a tired elevator going up and down and stopping on every floor and it can’t wait for the work day to be over",
+      "You are a mermaid who just got her tail tangled up in a bunch of seaweed",
+      "You are a snake slithering across the rocks on a hot day",
+      "You are a roly poly bug who gets startled by a kid and curls up into a ball",
+      "You are a heavy rain cloud floating in the sky and then finally raining out all its rain",
+      "You are a windmill on a very windy day",
+      "You are a pinwheel getting blown around by a very excited kid",
+      "You are a roll of toilet paper that fell on the bathroom floor and is unraveling as it rolls across the room",
+      "You are a tadpole turning into a frog and can’t believe that it’s losing its tail and growing legs",
+      "You are the early bird pecking for worms and there are so many worms to choose from it can’t decide",
+      "You are a pot of boiling water on the stove",
+      "You are a cooked spaghetti noodle getting thrown to see if it’s done",
+      "You are a tiger cub chasing its tail but always spinning the wrong way",
+      "You are a balloon getting twisted into a balloon animal",
+      "You are a crab scuttling away from a wave",
+      "You are a sunflower slowly turning its head to follow the sun",
+      "You are a bag of popcorn in the microwave that got cooked a little too long",
+      "You are a sleepy turtle slowly climbing onto a log to sunbathe",
+      "You are a piece of tape that keeps sticking to itself no matter what",
+      "You are a squirrel frantically burying an acorn before any of the other squirrels see",
+      "You are a dog digging in the dirt and finding its favorite dog toy that it forgot it buried last week",
+      "You are a candle on a birthday cake melting because the birthday kid is taking a long time to blow their candles out",
+      "You are a seagull swooping down to steal a french fry from a man on the beach",
+      "You are a kite getting flown on a windy day",
+      "You are a marshmallow melting in a fresh mug of hot chocolate",
+      "You are a hamster sneakily stuffing its cheeks with snacks when nobody is looking",
+      "You are a cat stretching in a sunny window",
+      "You are a volcano that’s been asleep for 200 years but just decides it’s time to wake up and explode",
+      "You are a puddle drying up in the hot sun",
+      "You are a giant wave rolling in and crashing on the beach",
+      "You are a caterpillar munching through the most delicious leaf on the tree",
+      "You are a goldfish swimming laps in its bowl for its morning exercise",
+      "You are a dragonfly showing off how fast it can fly around the garden",
+      "You are a big juicy blueberry getting squished",
+      "You are a bee buzzing from flower to flower trying to pick the perfect one to land on",
+      "You are a popsicle melting and dripping down the stick",
+      "You are a spider in a web-spinning contest trying to spin the biggest web in under a minute",
+      "You are all the leftover food in someone’s teeth getting flossed out",
+      "You are a frog trying to leap onto a lily pad but it misses and falls into the pond",
+      "You are a lonely cloud floating across the sky looking for another cloud friend",
+      "You are a snowman being built but then getting knocked down",
+      "You are a bubble getting blown and then floating all the way across the yard and popping on a piece of grass",
+      "You are a pencil rolling off a desk",
+      "You are a hedgehog curling up into a ball for a nap",
+      "You are a piece of toast popping up out of the toaster and being so surprised it’s toasted",
+      "You are a yo-yo going down and then shooting back up, having the time of its life",
+      "You are a mailbox flag going up when there’s mail inside and being so excited to announce it to the mailman",
+      "You are an apple falling from the apple tree and landing in a goat’s mouth",
+      "You are a tire swing being spun round and round and then unwinding really fast",
+      "You are a clock ticking louder and louder before the alarm",
+      "You are a banana getting peeled",
+      "You are a zipper getting stuck halfway up a jacket",
+      "You are a sailboat whose sail gets opened up and a big gust of wind blows straight into it",
+      "You are a stick of butter slowly melting on warm toast",
+      "You are a banana slug slowly making its way into a flower pot",
+      "You are a paper airplane getting folded up and then gliding across the room",
+      "You are a wind chime jingling in the breeze",
+      "You are a ladybug climbing up a blade of grass and then taking off to go flying",
+      "You are a rubber band being stretched as far as it can go and then snapping",
+      "You are ear wax getting cleaned out of an ear",
+      "You are a snot bubble accidentally getting shot out of someone’s nose when they sneeze",
+      "You are a piece of paper getting crumpled up and thrown into the recycling bin",
+      "You are a birthday present being unwrapped",
+      "You are a piece of dirt getting washed down the drain",
+      "You are the germ on someone’s hand getting washed away with soap",
+      "You are an electric toothbrush brushing someone’s teeth",
+      "You are a beaded bracelet getting broken and its beads spilling all over the floor",
+      "You are a skunk that gets startled by its own shadow and sprays its skunk spray into the air",
+      "You are a soda can that got shaken up and is being opened…",
+      "You are a cow that desperately wants to be a lapdog. (submitted by a friend! 🥰)",
+      "You are a duck trying to ride on a broken skateboard (submitted by Olivia 🥰)",
+      "You are a butterfly emerging from its chrysalis and is very surprised it's no longer a caterpillar. (submitted by Olivia 🥰)",
+      "You are a hippo doing a cannonball into the pool",
+      "You are a lizard in disguise trying to sneak into a turtle party",
+      "You are a brand new hot air balloon getting filled with air for the first time",
+      "You are a button squeezing into the buttonhole of a sweater",
+      "You are a T-rex trying to put on pajama bottoms",
+      "You are a very sleepy kangaroo trying to stay up and hop on the bed past its bedtime",
       "You are a tumbleweed caught in a tornado",
-  "You are a roly poly bug that trips down a hill",
-  "You are a bee that secretly hates honey",
-  "You are a soccer ball that’s scoring a goal",
-  "You are a toy circling around the tub drain after a bath",
-  "You are a dinosaur stomping so hard it leaves a fossil footprint",
-  "You are a piece of spaghetti being slurped up real fast",
-  "You are a scrubber in a car wash, spinning over a dirty car",
-  "You are a baby fish hatching out of an egg and swimming around to find its mommy",
-  "You are all the cheese being sprinkled onto a pizza then melting in the oven",
-  "You are a jumping spider playing hopscotch",
-  "You are a headband for a baby that’s getting stretched too far because a daddy is trying to wear it",
-  "You are a pancake getting flipped over in the pan but then falling to the floor and the dog is eating it",
-  "You are a dog’s tail wagging really fast",
-  "You are a prairie dog poking out of the hole and seeing a coyote and getting scared and digging back down into the dirt",
-  "You are a laptop computer being opened and typed on and then closed",
-  "You are a cup of water getting filled too much and all the water is spilling out",
-  "You are the last chip in a bag sad that it didn’t get eaten and then someone finally eats it",
-  "You are a magical cheeseburger that starts flying off of someone's plate by flapping its buns!",
-  "You are a foot getting squeezed into a shoe that's way too tight",
-  "You are a beautiful earring getting worn on an ear for the first time but having to say goodbye to the other earring that it's been used to sitting next to its whole life!",
-  "You are a tadpole that is jealous that all the other tadpoles turned into frogs before it did!",
-  "You are a giant lego tower getting built and then someone sneezes and it falls over",
-  "You are a ping pong ball getting passed back and forth during an exciting game of ping pong!",
-  "You are a bowling ball that got rolled very lightly and is slowly making its way towards the pins",
-  "You are a bowling ball that got rolled very fast but goes straight into the gutter",
-  "You are the last Cheerio in the bowl who is so lonely and worried you won't get eaten and then the spoon finally scoops you up",
-  "You are an airplane taking off for the first time!",
-  "You are an airplane coming in for landing on a windy day",
-  "You are a trash can getting way too full of trash wondering when someone is going to take you out!",
-  "You are a tissue that is already full of snot and is starting to fall apart",
-  "You are a booger that's living comfortably in someone's nose and then gets sneezed out!",
-  "You are a baby kangaroo coming out of its mommy's pouch and hopping around to explore the world!",
-  "You are a snapping turtle trying to pop all the bubbles you see in the pond",
-  "You are a fly that gets caught in a spider web and you get unstuck just before the spider gets you!",
-  "You are a pair of underwear buried under a bunch of socks that thinks everyone forgot about it but then it finally gets picked to be worn",
-  "You are a pear getting a bath! (submitted by Farren!)",
-  "You are a spider walking on its web in a tree and then falling out of it (submitted by Solly)",
+      "You are a roly poly bug that trips down a hill",
+      "You are a bee that secretly hates honey",
+      "You are a soccer ball that’s scoring a goal",
+      "You are a toy circling around the tub drain after a bath",
+      "You are a dinosaur stomping so hard it leaves a fossil footprint",
+      "You are a piece of spaghetti being slurped up real fast",
+      "You are a scrubber in a car wash, spinning over a dirty car",
+      "You are a baby fish hatching out of an egg and swimming around to find its mommy",
+      "You are all the cheese being sprinkled onto a pizza then melting in the oven",
+      "You are a jumping spider playing hopscotch",
+      "You are a headband for a baby that’s getting stretched too far because a daddy is trying to wear it",
+      "You are a pancake getting flipped over in the pan but then falling to the floor and the dog is eating it",
+      "You are a dog’s tail wagging really fast",
+      "You are a prairie dog poking out of the hole and seeing a coyote and getting scared and digging back down into the dirt",
+      "You are a laptop computer being opened and typed on and then closed",
+      "You are a cup of water getting filled too much and all the water is spilling out",
+      "You are the last chip in a bag sad that it didn’t get eaten and then someone finally eats it",
+      "You are a magical cheeseburger that starts flying off of someone's plate by flapping its buns!",
+      "You are a foot getting squeezed into a shoe that's way too tight",
+      "You are a beautiful earring getting worn on an ear for the first time but having to say goodbye to the other earring that it's been used to sitting next to its whole life!",
+      "You are a tadpole that is jealous that all the other tadpoles turned into frogs before it did!",
+      "You are a giant lego tower getting built and then someone sneezes and it falls over",
+      "You are a ping pong ball getting passed back and forth during an exciting game of ping pong!",
+      "You are a bowling ball that got rolled very lightly and is slowly making its way towards the pins",
+      "You are a bowling ball that got rolled very fast but goes straight into the gutter",
+      "You are the last Cheerio in the bowl who is so lonely and worried you won't get eaten and then the spoon finally scoops you up",
+      "You are an airplane taking off for the first time!",
+      "You are an airplane coming in for landing on a windy day",
+      "You are a trash can getting way too full of trash wondering when someone is going to take you out!",
+      "You are a tissue that is already full of snot and is starting to fall apart",
+      "You are a booger that's living comfortably in someone's nose and then gets sneezed out!",
+      "You are a baby kangaroo coming out of its mommy's pouch and hopping around to explore the world!",
+      "You are a snapping turtle trying to pop all the bubbles you see in the pond",
+      "You are a fly that gets caught in a spider web and you get unstuck just before the spider gets you!",
+      "You are a pair of underwear buried under a bunch of socks that thinks everyone forgot about it but then it finally gets picked to be worn",
+      "You are a pear getting a bath! (submitted by Farren!)",
+      "You are a spider walking on its web in a tree and then falling out of it (submitted by Solly)",
       "You are a booger holding on for dear life inside someone's nostril because they're trying to pick you out but it's nice and warm in there and you don't wanna leave!",
       "You are a Q tip having to clean out a really waxy ear",
       "You are a spoon getting dipped into an ice cold bowl of cereal first thing in the morning and you're barely even awake",
@@ -406,7 +715,7 @@ body{
       "You are the last popsicle in the box and you're sad nobody picked you, then someone opens the freezer and grabs you!",
       "You are a leaf floating down the stream and then you go down a huge waterfall",
       "You are a mischievous piece of toilet paper that stuck onto someone's shoe and you're dragging around behind them",
-       "You are a chocolate cake riding on a merry-go-round (submitted by Kenny!)",
+      "You are a chocolate cake riding on a merry-go-round (submitted by Kenny!)",
       "You are a soccer ball being kicked around in a soccer match (submitted by Leena!)",
       "You are a cat looking for its kittens and when you find them they're eating ice cream (submitted by Luna!)",
       "You are a cat that was lost but then finds its way home! (submitted by Aurora!)",
@@ -431,20 +740,24 @@ body{
       "You are a brand new rubber ducky getting to float in the bath tub for the first time!",
       "You are a towel wiping up spilled orange juice off the floor",
       "You are a rocket ship taking off into outer space and you're a little nervous during countdown",
-      "You're the moon getting ready to shine for the night but you're sleepy and don't feel like it",
-      "You're a shooting star that's trying to show off for all the other stars",
-      "You're a bag of rice that just burst open and spilled all over the ground",
-      "You're a turtle getting ready for work",
-      "You're a rabbit who just saw the perfect carrot and you're hopping to get it before any other rabbits see it",
-      "You're a magnet getting stuck to the fridge",
-      "You're a pen writing a very important letter but then you run out of ink",
+      "You are the moon getting ready to shine for the night but you're sleepy and don't feel like it",
+      "You are a shooting star that's trying to show off for all the other stars",
+      "You are a bag of rice that just burst open and spilled all over the ground",
+      "You are a turtle getting ready for work",
+      "You are a rabbit who just saw the perfect carrot and you're hopping to get it before any other rabbits see it",
+      "You are a magnet getting stuck to the fridge",
+      "You are a pen writing a very important letter but then you run out of ink",
       "You are a stinky rotten boiled egg that's been hiding at the back of the fridge and you think it's hilarious you are stinking up the fridge but nobody knows it's you!",
-  "You are an inflatable raft floating around in a swimming pool while a bunch of kids try to jump on it"
+      "You are an inflatable raft floating around in a swimming pool while a bunch of kids try to jump on it"
     ];
 
-    /* ---------- Deck shuffle + history + favorites (persistent) ---------- */
+
+    /* ---------- Deck shuffle + history + favorites ---------- */
+
     const APP_NS = 'you-are';
+
     const K = (s) => `${APP_NS}_${s}`;
+
     const KEY_VER   = K('ver');
     const KEY_ORDER = K('order');
     const KEY_IDX   = K('idx');
@@ -452,11 +765,13 @@ body{
     const KEY_HPOS  = K('hpos');
     const KEY_FAVS  = K('favs');
 
+
     const elPrompt = document.getElementById('prompt');
-    const btnBack  = document.getElementById('btnBack');
-    const btnFwd   = document.getElementById('btnFwd');
-    const btnNext  = document.getElementById('btnNext');
-    const btnSave  = document.getElementById('btnSave');
+
+    const btnBack = document.getElementById('btnBack');
+    const btnFwd  = document.getElementById('btnFwd');
+    const btnNext = document.getElementById('btnNext');
+    const btnSave = document.getElementById('btnSave');
 
     const favListEl  = document.getElementById('favList');
     const favEmptyEl = document.getElementById('favEmpty');
@@ -464,223 +779,753 @@ body{
     const btnClear   = document.getElementById('btnClear');
     const toastEl    = document.getElementById('toast');
 
-    function hashText(text){ let h=0; for(let i=0;i<text.length;i++) h=(h*31+text.charCodeAt(i))>>>0; return h.toString(36); }
-    function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
-    function freshOrder(avoidIdx){
-      const order = shuffle(Array.from({length: prompts.length}, (_,i)=>i));
-      if (avoidIdx!=null && prompts.length>1 && order[0]===avoidIdx){
-        const k = 1 + Math.floor(Math.random()*(order.length-1));
-        [order[0], order[k]] = [order[k], order[0]];
+
+    function hashText(text) {
+      let h = 0;
+
+      for (let i = 0; i < text.length; i++) {
+        h = (h * 31 + text.charCodeAt(i)) >>> 0;
       }
+
+      return h.toString(36);
+    }
+
+
+    function shuffle(a) {
+
+      for (let i = a.length - 1; i > 0; i--) {
+
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [a[i], a[j]] = [a[j], a[i]];
+
+      }
+
+      return a;
+    }
+
+
+    function freshOrder(avoidIdx) {
+
+      const order = shuffle(
+        Array.from({ length: prompts.length }, (_, i) => i)
+      );
+
+      if (
+        avoidIdx != null &&
+        prompts.length > 1 &&
+        order[0] === avoidIdx
+      ) {
+
+        const k =
+          1 + Math.floor(Math.random() * (order.length - 1));
+
+        [order[0], order[k]] =
+          [order[k], order[0]];
+      }
+
       return order;
     }
 
-    const PROMPTS_VERSION = hashText(JSON.stringify(prompts));
-    function saveState(s){
+
+    const PROMPTS_VERSION =
+      hashText(JSON.stringify(prompts));
+
+
+    function saveState(s) {
+
       localStorage.setItem(KEY_VER, PROMPTS_VERSION);
       localStorage.setItem(KEY_ORDER, JSON.stringify(s.order));
       localStorage.setItem(KEY_IDX, String(s.idx));
       localStorage.setItem(KEY_HIST, JSON.stringify(s.history));
       localStorage.setItem(KEY_HPOS, String(s.hpos));
+
     }
-    function loadState(){
-      const savedVer = localStorage.getItem(KEY_VER);
-      let state = { order:null, idx:0, history:[], hpos:0 };
-      if (savedVer === PROMPTS_VERSION){
-        try{
-          state.order   = JSON.parse(localStorage.getItem(KEY_ORDER) || 'null');
-          state.idx     = parseInt(localStorage.getItem(KEY_IDX) || '0', 10) || 0;
-          state.history = JSON.parse(localStorage.getItem(KEY_HIST) || '[]');
-          state.hpos    = parseInt(localStorage.getItem(KEY_HPOS) || String(state.history.length), 10) || state.history.length;
-        }catch{}
+
+
+    function loadState() {
+
+      const savedVer =
+        localStorage.getItem(KEY_VER);
+
+      let state = {
+        order: null,
+        idx: 0,
+        history: [],
+        hpos: 0
+      };
+
+
+      if (savedVer === PROMPTS_VERSION) {
+
+        try {
+
+          state.order =
+            JSON.parse(
+              localStorage.getItem(KEY_ORDER) || 'null'
+            );
+
+          state.idx =
+            parseInt(
+              localStorage.getItem(KEY_IDX) || '0',
+              10
+            ) || 0;
+
+          state.history =
+            JSON.parse(
+              localStorage.getItem(KEY_HIST) || '[]'
+            );
+
+          state.hpos =
+            parseInt(
+              localStorage.getItem(KEY_HPOS) ||
+              String(state.history.length),
+              10
+            ) || state.history.length;
+
+        } catch {}
+
       }
-      if (!Array.isArray(state.order) || state.order.length !== prompts.length){
+
+
+      if (
+        !Array.isArray(state.order) ||
+        state.order.length !== prompts.length
+      ) {
+
         state.order = freshOrder(null);
-        state.idx = 0; state.history = []; state.hpos = 0;
+        state.idx = 0;
+        state.history = [];
+        state.hpos = 0;
+
       } else {
-        state.idx  = Math.min(Math.max(0, state.idx),  Math.max(0, state.order.length-1));
-        state.hpos = Math.min(Math.max(0, state.hpos), state.history.length);
-        state.history = state.history.filter(n => Number.isInteger(n) && n>=0 && n<prompts.length);
+
+        state.idx =
+          Math.min(
+            Math.max(0, state.idx),
+            Math.max(0, state.order.length - 1)
+          );
+
+        state.hpos =
+          Math.min(
+            Math.max(0, state.hpos),
+            state.history.length
+          );
+
+        state.history =
+          state.history.filter(
+            n =>
+              Number.isInteger(n) &&
+              n >= 0 &&
+              n < prompts.length
+          );
       }
+
+
       saveState(state);
+
       return state;
     }
 
+
     let STATE = loadState();
 
-    function show(idx){ elPrompt.textContent = prompts[idx]; }
-    function updateNavButtons(){
-      btnBack.disabled = STATE.hpos <= 1;
-      btnFwd.disabled  = STATE.hpos >= STATE.history.length;
+
+    function show(idx) {
+
+      elPrompt.classList.remove('start-message');
+
+      elPrompt.textContent = prompts[idx];
+
     }
-    function currentIndex(){
-      if (!STATE.history.length || STATE.hpos===0) return null;
-      return STATE.hpos===STATE.history.length
-        ? STATE.history[STATE.history.length-1]
-        : STATE.history[STATE.hpos-1];
+
+
+    function updateNavButtons() {
+
+      btnBack.disabled =
+        STATE.hpos <= 1;
+
+      btnFwd.disabled =
+        STATE.hpos >= STATE.history.length;
+
     }
-    function pickNextFromDeck(){
-      let { order, idx } = STATE;
-      const next = order[idx];
-      idx++;
-      if (idx >= order.length){
-        const avoid = next;
-        order = freshOrder(avoid);
-        idx = 0;
+
+
+    function currentIndex() {
+
+      if (
+        !STATE.history.length ||
+        STATE.hpos === 0
+      ) {
+        return null;
       }
-      STATE.order = order; STATE.idx = idx;
+
+      return STATE.hpos === STATE.history.length
+        ? STATE.history[STATE.history.length - 1]
+        : STATE.history[STATE.hpos - 1];
+
+    }
+
+
+    function pickNextFromDeck() {
+
+      let {
+        order,
+        idx
+      } = STATE;
+
+
+      const next = order[idx];
+
+      idx++;
+
+
+      if (idx >= order.length) {
+
+        const avoid = next;
+
+        order = freshOrder(avoid);
+
+        idx = 0;
+
+      }
+
+
+      STATE.order = order;
+      STATE.idx = idx;
+
       return next;
     }
 
-    function next(){
+
+    function next() {
+
+      elPrompt.classList.remove('start-message');
+
       elPrompt.textContent = 'Here you go...!';
-      setTimeout(()=>{
-        if (STATE.hpos < STATE.history.length) STATE.history.splice(STATE.hpos);
-        const pick = pickNextFromDeck();
+
+
+      setTimeout(() => {
+
+        if (
+          STATE.hpos <
+          STATE.history.length
+        ) {
+          STATE.history.splice(STATE.hpos);
+        }
+
+
+        const pick =
+          pickNextFromDeck();
+
+
         STATE.history.push(pick);
-        if (STATE.history.length > 500) STATE.history.splice(0, STATE.history.length-500);
-        STATE.hpos = STATE.history.length;
-        show(pick); updateNavButtons(); saveState(STATE); updateSaveButton();
+
+
+        if (
+          STATE.history.length > 500
+        ) {
+          STATE.history.splice(
+            0,
+            STATE.history.length - 500
+          );
+        }
+
+
+        STATE.hpos =
+          STATE.history.length;
+
+
+        show(pick);
+
+        updateNavButtons();
+
+        saveState(STATE);
+
+        updateSaveButton();
+
       }, 300);
+
     }
-    function back(){
-      if (STATE.hpos > 1){
+
+
+    function back() {
+
+      if (STATE.hpos > 1) {
+
         STATE.hpos -= 1;
-        show(STATE.history[STATE.hpos-1]);
-        updateNavButtons(); saveState(STATE); updateSaveButton();
+
+        show(
+          STATE.history[
+            STATE.hpos - 1
+          ]
+        );
+
+        updateNavButtons();
+
+        saveState(STATE);
+
+        updateSaveButton();
+
       }
+
     }
-    function forward(){
-      if (STATE.hpos < STATE.history.length){
-        const idx = STATE.history[STATE.hpos];
+
+
+    function forward() {
+
+      if (
+        STATE.hpos <
+        STATE.history.length
+      ) {
+
+        const idx =
+          STATE.history[
+            STATE.hpos
+          ];
+
+
         STATE.hpos += 1;
-        show(idx); updateNavButtons(); saveState(STATE); updateSaveButton();
+
+
+        show(idx);
+
+        updateNavButtons();
+
+        saveState(STATE);
+
+        updateSaveButton();
+
       }
+
     }
 
-    /* Favorites (store indices) */
-    function loadFavorites(){ try { return JSON.parse(localStorage.getItem(KEY_FAVS) || '[]'); } catch { return []; } }
-    function saveFavorites(list){ localStorage.setItem(KEY_FAVS, JSON.stringify(list)); }
-    let FAVORITES = loadFavorites();
-    function isFavorite(i){ return FAVORITES.includes(i); }
-    function updateSaveButton(){
+
+    /* ---------- Favorites ---------- */
+
+    function loadFavorites() {
+
+      try {
+
+        return JSON.parse(
+          localStorage.getItem(KEY_FAVS) ||
+          '[]'
+        );
+
+      } catch {
+
+        return [];
+
+      }
+
+    }
+
+
+    function saveFavorites(list) {
+
+      localStorage.setItem(
+        KEY_FAVS,
+        JSON.stringify(list)
+      );
+
+    }
+
+
+    let FAVORITES =
+      loadFavorites();
+
+
+    function isFavorite(i) {
+
+      return FAVORITES.includes(i);
+
+    }
+
+
+    function updateSaveButton() {
+
       const i = currentIndex();
-      if (i == null){ btnSave.disabled = true; btnSave.textContent = 'Save to Favorites'; return; }
+
+
+      if (i == null) {
+
+        btnSave.disabled = true;
+
+        btnSave.textContent =
+          'Save to Favorites';
+
+        return;
+      }
+
+
       btnSave.disabled = false;
-      btnSave.textContent = isFavorite(i) ? 'Saved' : 'Save to Favorites';
+
+      btnSave.textContent =
+        isFavorite(i)
+          ? 'Saved'
+          : 'Save to Favorites';
+
     }
-    function saveCurrent(){
-      const i = currentIndex();
+
+
+    function saveCurrent() {
+
+      const i =
+        currentIndex();
+
+
       if (i == null) return;
-      if (!isFavorite(i)){
-        FAVORITES.push(i); saveFavorites(FAVORITES); renderFavorites();
-        toast('Saved to favorites'); updateSaveButton();
+
+
+      if (!isFavorite(i)) {
+
+        FAVORITES.push(i);
+
+        saveFavorites(FAVORITES);
+
+        renderFavorites();
+
+        toast('Saved to favorites');
+
+        updateSaveButton();
+
       } else {
+
         toast('Already in favorites');
+
       }
+
     }
-    function removeFavorite(i){
-      FAVORITES = FAVORITES.filter(n => n !== i); saveFavorites(FAVORITES);
-      renderFavorites(); updateSaveButton(); toast('Removed');
+
+
+    function removeFavorite(i) {
+
+      FAVORITES =
+        FAVORITES.filter(
+          n => n !== i
+        );
+
+
+      saveFavorites(FAVORITES);
+
+      renderFavorites();
+
+      updateSaveButton();
+
+      toast('Removed');
+
     }
-    function renderFavorites(){
+
+
+    function renderFavorites() {
+
       favListEl.innerHTML = '';
-      if (!FAVORITES.length){ favEmptyEl.style.display = 'block'; return; }
-      favEmptyEl.style.display = 'none';
+
+
+      if (!FAVORITES.length) {
+
+        favEmptyEl.style.display =
+          'block';
+
+        return;
+
+      }
+
+
+      favEmptyEl.style.display =
+        'none';
+
+
       FAVORITES.forEach(i => {
-        const li = document.createElement('li'); li.className = 'favItem';
-        const txt = document.createElement('div'); txt.className = 'favText'; txt.textContent = prompts[i];
-        const actions = document.createElement('div'); actions.className = 'favActions';
-        const copyBtn = document.createElement('button'); copyBtn.className = 'iconBtn'; copyBtn.textContent='Copy';
-        copyBtn.onclick = ()=>{ navigator.clipboard.writeText(prompts[i]); toast('Copied'); };
-        const delBtn  = document.createElement('button'); delBtn.className = 'iconBtn'; delBtn.textContent='Remove';
-        delBtn.onclick = ()=> removeFavorite(i);
-        actions.appendChild(copyBtn); actions.appendChild(delBtn);
-        li.appendChild(txt); li.appendChild(actions); favListEl.appendChild(li);
+
+        const li =
+          document.createElement('li');
+
+        li.className =
+          'favItem';
+
+
+        const txt =
+          document.createElement('div');
+
+        txt.className =
+          'favText';
+
+        txt.textContent =
+          prompts[i];
+
+
+        const actions =
+          document.createElement('div');
+
+        actions.className =
+          'favActions';
+
+
+        const copyBtn =
+          document.createElement('button');
+
+        copyBtn.className =
+          'iconBtn';
+
+        copyBtn.textContent =
+          'Copy';
+
+        copyBtn.onclick = () => {
+
+          navigator.clipboard.writeText(
+            prompts[i]
+          );
+
+          toast('Copied');
+
+        };
+
+
+        const delBtn =
+          document.createElement('button');
+
+        delBtn.className =
+          'iconBtn';
+
+        delBtn.textContent =
+          'Remove';
+
+        delBtn.onclick = () =>
+          removeFavorite(i);
+
+
+        actions.appendChild(copyBtn);
+
+        actions.appendChild(delBtn);
+
+        li.appendChild(txt);
+
+        li.appendChild(actions);
+
+        favListEl.appendChild(li);
+
       });
-    }
-    function copyFavorites(){
-      if (!FAVORITES.length){ toast('No favorites to copy'); return; }
-      const text = FAVORITES.map(i => prompts[i]).join('\n');
-      navigator.clipboard.writeText(text); toast('Favorites copied');
-    }
-    function clearFavorites(){
-      FAVORITES = []; saveFavorites(FAVORITES); renderFavorites(); updateSaveButton(); toast('Favorites cleared');
+
     }
 
-    /* Tiny toast */
-    let toastTimer=null;
-    function toast(msg){
+
+    function copyFavorites() {
+
+      if (!FAVORITES.length) {
+
+        toast(
+          'No favorites to copy'
+        );
+
+        return;
+
+      }
+
+
+      const text =
+        FAVORITES
+          .map(i => prompts[i])
+          .join('\n');
+
+
+      navigator.clipboard.writeText(
+        text
+      );
+
+
+      toast(
+        'Favorites copied'
+      );
+
+    }
+
+
+    function clearFavorites() {
+
+      FAVORITES = [];
+
+      saveFavorites(FAVORITES);
+
+      renderFavorites();
+
+      updateSaveButton();
+
+      toast(
+        'Favorites cleared'
+      );
+
+    }
+
+
+    /* ---------- Toast ---------- */
+
+    let toastTimer = null;
+
+
+    function toast(msg) {
+
       toastEl.textContent = msg;
-      toastEl.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(()=> toastEl.classList.remove('show'), 1200);
+
+      toastEl.classList.add(
+        'show'
+      );
+
+
+      clearTimeout(
+        toastTimer
+      );
+
+
+      toastTimer =
+        setTimeout(
+          () =>
+            toastEl.classList.remove(
+              'show'
+            ),
+          1200
+        );
+
     }
 
-    /* Wire events */
-    btnNext.addEventListener('click', next);
-    btnBack.addEventListener('click', back);
-    btnFwd .addEventListener('click', forward);
-    btnSave.addEventListener('click', saveCurrent);
-    btnCopyAll.addEventListener('click', copyFavorites);
-    btnClear.addEventListener('click', clearFavorites);
 
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Enter') next();
-      if (e.key === 'ArrowLeft') back();
-      if (e.key === 'ArrowRight') forward();
-      if (e.key.toLowerCase() === 's') saveCurrent();
-    });
+    /* ---------- Events ---------- */
 
-    // On load: show last seen if exists
-    if (STATE.history.length){
-      STATE.hpos = STATE.history.length;
-      show(STATE.history[STATE.history.length - 1]);
+    btnNext.addEventListener(
+      'click',
+      next
+    );
+
+    btnBack.addEventListener(
+      'click',
+      back
+    );
+
+    btnFwd.addEventListener(
+      'click',
+      forward
+    );
+
+    btnSave.addEventListener(
+      'click',
+      saveCurrent
+    );
+
+    btnCopyAll.addEventListener(
+      'click',
+      copyFavorites
+    );
+
+    btnClear.addEventListener(
+      'click',
+      clearFavorites
+    );
+
+
+    document.addEventListener(
+      'keydown',
+      e => {
+
+        if (e.key === 'Enter')
+          next();
+
+        if (e.key === 'ArrowLeft')
+          back();
+
+        if (e.key === 'ArrowRight')
+          forward();
+
+        if (
+          e.key.toLowerCase() === 's'
+        )
+          saveCurrent();
+
+      }
+    );
+
+
+    /* ---------- Initial state ---------- */
+
+    if (STATE.history.length) {
+
+      STATE.hpos =
+        STATE.history.length;
+
+      show(
+        STATE.history[
+          STATE.history.length - 1
+        ]
+      );
+
     }
+
+
     updateNavButtons();
+
     renderFavorites();
+
     updateSaveButton();
+
     saveState(STATE);
-  </script>
-    <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/you-are/service-worker.js', { scope: '/you-are/' })
-        .catch(function(err) {
-          console.log('Service worker registration failed:', err);
-        });
-    });
-  }
+
   </script>
 
 
-  <div class="print-deck" style="margin:2rem 0; text-align:center;">
-  <hr style="margin-bottom:1rem;">
-  <p style="font-family:Poppins, sans-serif; font-size:1rem; color:#18323b;">
-    Prefer screen-free play?
-  </p>
-  <a href="you-are-deck.pdf" target="_blank" 
-     style="display:inline-block; padding:.75rem 1.25rem; 
-            background:#127490; color:white; font-weight:600; 
-            text-decoration:none; border-radius:8px;">
-    Download the You Are – Print & Play Starter Deck
-  </a>
-  <p style="font-size:.85rem; color:#555; margin-top:.5rem;">
-    Includes 53 favorite prompts from the app. Just print, cut, and play!<br>
-      <em>Tip: If you’re viewing in the app, press and hold this button, copy the link, then open it in your browser to download/print.</em>
-  </p>
-</div>
+  <script>
 
-<script>
-(function () {
-  const isCircle =
-    new URLSearchParams(window.location.search).get("circle") === "1";
+    if ('serviceWorker' in navigator) {
 
-  if (isCircle) {
-    document.body.classList.add("circle-mode");
-  }
-})();
-</script>
-  
+      window.addEventListener(
+        'load',
+        function () {
+
+          navigator.serviceWorker
+            .register(
+              '/you-are/service-worker.js',
+              {
+                scope: '/you-are/'
+              }
+            )
+            .catch(
+              function (err) {
+
+                console.log(
+                  'Service worker registration failed:',
+                  err
+                );
+
+              }
+            );
+
+        }
+      );
+
+    }
+
+  </script>
+
+
+  <script>
+
+    (function () {
+
+      const isCircle =
+        new URLSearchParams(
+          window.location.search
+        ).get('circle') === '1';
+
+
+      if (isCircle) {
+
+        document.body.classList.add(
+          'circle-mode'
+        );
+
+      }
+
+    })();
+
+  </script>
+
 </body>
 </html>
