@@ -1,4 +1,4 @@
-const VERSION = 'you-are-v2';
+const VERSION = 'you-are-v3';
 const APP_SCOPE = '/you-are/';
 
 const ASSETS = [
