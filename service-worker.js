@@ -1,10 +1,11 @@
-const VERSION = 'you-are-v1';
+const VERSION = 'you-are-v2';
 const APP_SCOPE = '/you-are/';
 
 const ASSETS = [
   APP_SCOPE,
   APP_SCOPE + 'index.html',
   APP_SCOPE + 'manifest.webmanifest',
+  APP_SCOPE + 'act-this-out-graphic.png',
   APP_SCOPE + 'icon-192.png',
   APP_SCOPE + 'icon-512.png',
   APP_SCOPE + 'icon-512-maskable.png'
